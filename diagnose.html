@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnostik Gambar — OMBAR NEWS</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    :root {
+      --navy-900: #0A1A2F; --navy-700: #12345C; --ocean: #0A6E8C;
+      --turquoise: #06B6D4; --ok: #059669; --ok-soft: #D1FAE5;
+      --danger: #DC2626; --danger-soft: #FEE2E2; --warn: #B45309;
+      --text: #0F1E33; --text-mute: #6B7E94; --border: #E1E8F0;
+      --surface: #fff; --bg: #F4F7FB;
+    }
+    body { font-family: "Inter", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 24px; }
+    h1 { font-family: "Oswald", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: .5px; margin-bottom: 6px; }
+    .sub { color: var(--text-mute); margin-bottom: 24px; font-size: 14px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(10,26,47,.06); }
+    .card h2 { font-size: 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .stat-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .stat { padding: 14px 18px; border-radius: 10px; background: var(--bg); flex: 1; min-width: 120px; }
+    .stat b { display: block; font-size: 26px; font-weight: 700; }
+    .stat span { font-size: 12px; color: var(--text-mute); }
+    .stat.ok b { color: var(--ok); }
+    .stat.fail b { color: var(--danger); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+    .item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .item img { width: 100%; height: 130px; object-fit: cover; display: block; background: var(--bg); }
+    .item__info { padding: 10px 12px; font-size: 12px; }
+    .item__name { font-weight: 600; word-break: break-all; }
+    .item__status { margin-top: 4px; font-weight: 700; }
+    .item__status.ok { color: var(--ok); }
+    .item__status.fail { color: var(--danger); }
+    .item__status.loading { color: var(--warn); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px; font-family: "Oswald", sans-serif; font-weight: 600; font-size: 13px; letter-spacing: .8px; text-transform: uppercase; cursor: pointer; border: 0; text-decoration: none; }
+    .btn--primary { background: var(--turquoise); color: var(--navy-900); }
+    .btn--ghost { background: var(--bg); color: var(--text-mute); border: 1px solid var(--border); }
+    .btn-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .alert { padding: 14px 16px; border-radius: 10px; margin-bottom: 14px; font-size: 14px; line-height: 1.6; }
+    .alert--warn { background: #FEF3C7; border: 1px solid #FDE68A; color: #92400E; }
+    .alert--ok { background: var(--ok-soft); border: 1px solid #6EE7B7; color: #065F46; }
+    .alert--danger { background: var(--danger-soft); border: 1px solid #FCA5A5; color: #991B1B; }
+    .alert code { background: rgba(0,0,0,.07); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+    .alert--ok code, .alert--danger code { background: rgba(255,255,255,.5); }
+    code { font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .links { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .links a { color: var(--ocean); font-weight: 600; font-size: 14px; }
+    @media (max-width: 600px) { body { padding: 14px; } h1 { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <h1>🔧 Diagnostik Gambar OMBAR NEWS</h1>
+  <p class="sub">Halaman ini mengecek apakah semua gambar berhasil dimuat di hosting Anda. Buka setelah deploy untuk menemukan masalah path gambar.</p>
+
+  <div class="btn-row">
+    <button class="btn btn--primary" id="checkBtn">▶ Cek Semua Gambar</button>
+    <a class="btn btn--ghost" href="index.html">← Kembali ke Situs</a>
+  </div>
+
+  <div id="summary"></div>
+  <div class="card">
+    <h2>🖼️ Status Setiap Gambar</h2>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Cara Memperbaiki Jika Gambar Tidak Tampil</h2>
+    <div id="fixGuide"></div>
+  </div>
+
+  <script>
+    var IMAGES = [
+      'images/hero-rajaampat.jpg',
+      'images/wayag-viewpoint.jpg',
+      'images/waisai-town.jpg',
+      'images/coral-reef.jpg',
+      'images/manta-ray.jpg',
+      'images/papuan-culture.jpg',
+      'images/beach-piaynemo.jpg',
+      'images/local-village.jpg',
+      'images/boat-lagoon.jpg'
+    ];
+
+    function checkImage(url) {
+      return new Promise(function (resolve) {
+        var img = new Image();
+        var timeout = setTimeout(function () {
+          resolve({ url: url, ok: false, status: 'timeout' });
+        }, 8000);
+        img.onload = function () {
+          clearTimeout(timeout);
+          resolve({ url: url, ok: true, status: 'ok', w: img.naturalWidth, h: img.naturalHeight });
+        };
+        img.onerror = function () {
+          clearTimeout(timeout);
+          resolve({ url: url, ok: false, status: '404/error' });
+        };
+        img.src = url + '?cb=' + Date.now();
+      });
+    }
+
+    function renderFixGuide(allOk, baseOk) {
+      var html = '';
+      if (allOk) {
+        html = '<div class="alert alert--ok">✅ <strong>Semua gambar berhasil dimuat!</strong> Situs Anda siap. Tidak ada tindakan diperlukan.</div>';
+      } else {
+        html = '<div class="alert alert--danger">❌ <strong>Beberapa gambar gagal dimuat.</strong> Kemungkinan penyebab &amp; solusi:</div>';
+        html += '<div class="alert alert--warn"><strong>1. Folder <code>images/</code> belum di-upload</strong><br>Pastikan Anda meng-upload <strong>seluruh isi ZIP</strong>, bukan hanya <code>index.html</code> + <code>.css</code> + <code>.js</code>. Folder <code>images/</code> (berisi 9 file .jpg) wajib ikut.<br><strong>Cek di repo/file manager hosting Anda:</strong> harus ada folder <code>images/</code> di root yang sama dengan <code>index.html</code>.</div>';
+        html += '<div class="alert alert--warn"><strong>2. Salah pilih jenis hosting</strong><br>Anda menggunakan <code>workers.dev</code> (Cloudflare <strong>Workers</strong>) — Workers TIDAK otomatis serve static assets. Gunakan <strong>Cloudflare Pages</strong> sebagai gantinya: <br>1) Login Cloudflare → Workers &amp; Pages → Create → <strong>Pages</strong> (bukan Workers)<br>2) Connect Git repo / Direct Upload folder<br>3) Build output directory: <code>/</code> (root)<br>4) Deploy → dapat URL <code>*.pages.dev</code></div>';
+        html += '<div class="alert alert--warn"><strong>3. Path case-sensitive</strong><br>Server Linux case-sensitive. Jangan rename file jadi <code>Images/</code> atau <code>Hero-RajaAmpat.JPG</code>. Biarkan lowercase persis seperti di ZIP.</div>';
+        html += '<div class="alert alert--warn"><strong>4. Upload via drag-and-drop terpisah</strong><br>Jika upload manual satu per satu, folder <code>images/</code> mungkin tidak terbentuk. Solusi: <strong>zip dulu folder</strong>, lalu di Cloudflare Pages gunakan <em>Direct Upload</em> dengan ZIP, atau connect via Git.</div>';
+        html += '<div class="alert alert--warn"><strong>5. Base URL salah</strong><br>Base URL situs Anda: <code>' + (baseOk ? location.origin + '/' : 'TIDAK TERDETEKSI') + '</code><br>Gambar seharusnya diakses di: <code>' + location.origin.replace(/\/$/, '') + '/images/NAMAFILE.jpg</code><br>Buka URL itu langsung di browser untuk verifikasi.</div>';
+      }
+      document.getElementById('fixGuide').innerHTML = html;
+    }
+
+    document.getElementById('checkBtn').addEventListener('click', async function () {
+      var btn = this;
+      btn.disabled = true; btn.textContent = '⏳ Mengecek...';
+      var grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      var results = [];
+      // Render placeholders first
+      IMAGES.forEach(function (url) {
+        var div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = '<img alt=""><div class="item__info"><div class="item__name">' + url + '</div><div class="item__status loading">⏳ mengecek...</div></div>';
+        grid.appendChild(div);
+        results.push({ el: div, url: url });
+      });
+      // Check each
+      var okCount = 0;
+      for (var i = 0; i < IMAGES.length; i++) {
+        var url = IMAGES[i];
+        var res = await checkImage(url);
+        var el = results[i].el;
+        var img = el.querySelector('img');
+        var status = el.querySelector('.item__status');
+        if (res.ok) {
+          okCount++;
+          img.src = url;
+          status.className = 'item__status ok';
+          status.textContent = '✓ OK (' + res.w + '×' + res.h + ')';
+        } else {
+          status.className = 'item__status fail';
+          status.textContent = '✗ GAGAL (' + res.status + ')';
+        }
+      }
+      // Summary
+      var allOk = okCount === IMAGES.length;
+      var sum = document.getElementById('summary');
+      if (allOk) {
+        sum.innerHTML = '<div class="alert alert--ok">✅ <strong>Semua ' + IMAGES.length + ' gambar berhasil dimuat!</strong> Situs Anda berfungsi sempurna.</div>';
+      } else {
+        sum.innerHTML = '<div class="alert alert--danger">⚠️ <strong>' + okCount + ' / ' + IMAGES.length + ' gambar berhasil dimuat.</strong> ' + (IMAGES.length - okCount) + ' gambar gagal. Lihat panduan perbaikan di bawah.</div>';
+      }
+      renderFixGuide(allOk, true);
+      btn.disabled = false; btn.textContent = '▶ Cek Ulang';
+    });
+
+    // Auto-run on load
+    window.addEventListener('load', function () {
+      document.getElementById('checkBtn').click();
+    });
+  </script>
+</body>
+</html>

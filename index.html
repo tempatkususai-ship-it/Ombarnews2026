@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A1A2F" />
+
+  <!-- SEO -->
+  <title>OMBAR NEWS — Raja Ampat &amp; Beyond</title>
+  <meta name="description" content="OMBAR NEWS — Portal berita digital profesional yang fokus pada berita Raja Ampat, Papua Barat Daya, Papua, nasional, dan internasional. Raja Ampat & Beyond." />
+  <meta name="keywords" content="OMBAR News, Raja Ampat, Papua Barat Daya, Waisai, Wayag, berita Papua, berita Indonesia, wisata Raja Ampat, Papua" />
+  <meta name="author" content="OMBAR NEWS" />
+  <link rel="canonical" href="https://www.ombarnews.id/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="OMBAR NEWS" />
+  <meta property="og:title" content="OMBAR NEWS — Raja Ampat & Beyond" />
+  <meta property="og:description" content="Portal berita Raja Ampat, Papua Barat Daya, Papua, nasional, dan internasional." />
+  <meta property="og:url" content="https://www.ombarnews.id/" />
+  <meta property="og:image" content="https://www.ombarnews.id/images/hero-rajaampat.jpg" />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OMBAR NEWS — Raja Ampat & Beyond" />
+  <meta name="twitter:description" content="Portal berita Raja Ampat, Papua Barat Daya, Papua, dan dunia." />
+  <meta name="twitter:image" content="https://www.ombarnews.id/images/hero-rajaampat.jpg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Favicon (inline wave svg) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230A1A2F'/%3E%3Cpath d='M6 40c6 0 6-6 12-6s6 6 12 6 6-6 12-6 6 6 12 6 6-6 12-6' fill='none' stroke='%2300C2CB' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M6 50c6 0 6-6 12-6s6 6 12 6 6-6 12-6 6 6 12 6 6-6 12-6' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' opacity='.6'/%3E%3C/svg%3E" />
+
+  <!-- Schema.org NewsMediaOrganization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsMediaOrganization",
+    "name": "OMBAR NEWS",
+    "url": "https://www.ombarnews.id/",
+    "logo": "https://www.ombarnews.id/images/hero-rajaampat.jpg",
+    "slogan": "Raja Ampat & Beyond",
+    "sameAs": [
+      "https://facebook.com/ombarnews",
+      "https://instagram.com/ombarnews",
+      "https://tiktok.com/@ombarnews",
+      "https://youtube.com/@ombarnews",
+      "https://x.com/ombarnews"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+  <!-- Loading overlay — shown until data (ombar-data.json) loads -->
+  <div id="loader" class="loader">
+    <div class="loader__wave" aria-hidden="true">
+      <svg viewBox="0 0 64 40" width="56" height="34">
+        <path d="M2 24c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M2 32c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".55"/>
+        <circle cx="52" cy="8" r="4" fill="currentColor" opacity=".9"/>
+      </svg>
+    </div>
+    <div class="loader__text">Memuat OMBAR NEWS…</div>
+  </div>
+
+  <!-- ============ TOP UTILITY BAR ============ -->
+  <div class="topbar" id="topbar">
+    <div class="container topbar__inner">
+      <div class="topbar__date" id="topbarDate">—</div>
+      <div class="topbar__actions">
+        <a class="topbar__link" href="#" data-action="subscribe">Newsletter</a>
+        <span class="topbar__sep" aria-hidden="true"></span>
+        <div class="topbar__socials" aria-label="Media sosial">
+          <a href="#" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+          <a href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2c-2.1 0-3.9 1.7-3.9 3.9S9.9 13.2 12 13.2s3.9-1.7 3.9-3.9S14.1 5.4 12 5.4zm0 6.4c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.8 12 6.8s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zm4.9-6.6c0 .5-.4.9-.9.9s-.9-.4-.9-.9.4-.9.9-.9.9.4.9.9z"/></svg></a>
+          <a href="#" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M16 3c.3 2.2 1.8 4 4 4.3v3c-1.5 0-2.9-.5-4-1.3v6.3c0 3.4-2.7 6.1-6.1 6.1S3.8 18.7 3.8 15.3 6.5 9.2 9.9 9.2c.3 0 .7 0 1 .1v3.1c-.3-.1-.6-.2-1-.2-1.7 0-3 1.4-3 3.1s1.4 3 3 3 3-1.4 3-3V3h3.1z"/></svg></a>
+          <a href="#" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M22 8.2c-.2-1.2-.7-2-2-2.2C18 5.6 12 5.6 12 5.6s-6 0-8 .4c-1.3.2-1.8 1-2 2.2C2 9.5 2 12 2 12s0 2.5.2 3.8c.2 1.2.7 2 2 2.2 2 .4 8 .4 8 .4s6 0 8-.4c1.3-.2 1.8-1 2-2.2.2-1.3.2-3.8.2-3.8s0-2.5-.2-3.8zM10 15.3V8.7l5.2 3.3L10 15.3z"/></svg></a>
+          <a href="#" aria-label="X" title="X"><svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.2L4.5 21H1.5l7.4-8.5L1 3h6.6l4.5 5.6L17.5 3zm-1.1 16h1.7L7.7 4.8H5.9l10.5 14.2z"/></svg></a>
+        </div>
+        <span class="topbar__sep" aria-hidden="true"></span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti mode terang/gelap" title="Mode terang/gelap">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 7a5 5 0 100 10 5 5 0 000-10zm0-5a1 1 0 011 1v2a1 1 0 01-2 0V3a1 1 0 011-1zm0 17a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM4.2 5.6a1 1 0 011.4 0l1.4 1.4a1 1 0 11-1.4 1.4L4.2 7a1 1 0 010-1.4zm11.3 11.3a1 1 0 011.4 0l1.4 1.4a1 1 0 01-1.4 1.4l-1.4-1.4a1 1 0 010-1.4zM2 12a1 1 0 011-1h2a1 1 0 010 2H3a1 1 0 01-1-1zm17 0a1 1 0 011-1h2a1 1 0 010 2h-2a1 1 0 01-1-1zM5.6 19.8a1 1 0 010-1.4l1.4-1.4a1 1 0 011.4 1.4l-1.4 1.4a1 1 0 01-1.4 0zM16.9 8.5a1 1 0 010-1.4l1.4-1.4a1 1 0 011.4 1.4l-1.4 1.4a1 1 0 01-1.4 0z"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BREAKING TICKER ============ -->
+  <div class="ticker" id="ticker" aria-label="Berita terkini">
+    <div class="container ticker__inner">
+      <span class="ticker__badge">
+        <span class="ticker__dot" aria-hidden="true"></span>
+        BREAKING
+      </span>
+      <div class="ticker__track" id="tickerTrack" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN HEADER ============ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <a href="#" class="brand" data-nav="home" aria-label="OMBAR NEWS beranda">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 64 40" width="46" height="30">
+            <path d="M2 24c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M2 32c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".55"/>
+            <circle cx="52" cy="8" r="4" fill="currentColor" opacity=".9"/>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__main">OMBAR</span>
+          <span class="brand__sub">NEWS</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navigasi utama">
+        <a href="#" class="nav__link" data-nav="home">Home</a>
+        <div class="nav__item">
+          <a href="#" class="nav__link" data-cat="raja-ampat">Raja Ampat</a>
+        </div>
+        <a href="#" class="nav__link" data-cat="papua-barat-daya">Papua Barat Daya</a>
+        <a href="#" class="nav__link" data-cat="papua">Papua</a>
+        <a href="#" class="nav__link" data-cat="national">National</a>
+        <a href="#" class="nav__link" data-cat="world">World</a>
+        <a href="#" class="nav__link" data-cat="politics">Politics</a>
+        <a href="#" class="nav__link" data-cat="economy">Economy</a>
+        <a href="#" class="nav__link" data-cat="sports">Sports</a>
+        <a href="#" class="nav__link" data-cat="culture">Culture</a>
+        <a href="#" class="nav__link" data-cat="travel">Travel</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Cari berita" title="Cari">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M11 4a7 7 0 100 14 7 7 0 000-14zm5.5 12.5L21 21"/></svg>
+        </button>
+        <button class="icon-btn hamburger-alt" id="hamburgerAlt" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE NAV OVERLAY ============ -->
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="mobile-nav__head">
+      <span class="mobile-nav__title">Menu</span>
+      <button class="icon-btn" id="mobileNavClose" aria-label="Tutup menu">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav__list" id="mobileNavList" aria-label="Navigasi mobile">
+      <!-- populated by JS -->
+    </nav>
+    <div class="mobile-nav__foot">
+      <a href="#" data-action="subscribe">Newsletter</a>
+      <button class="theme-toggle" data-theme-toggle aria-label="Ganti mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+        <span>Mode</span>
+      </button>
+    </div>
+  </div>
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <!-- ============ SEARCH OVERLAY ============ -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay__bar">
+      <div class="container search-overlay__inner">
+        <svg class="search-overlay__icon" viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M11 4a7 7 0 100 14 7 7 0 000-14zm5.5 12.5L21 21"/></svg>
+        <input type="search" id="searchInput" class="search-overlay__input" placeholder="Cari berita Raja Ampat, Papua, dunia..." autocomplete="off" />
+        <button class="icon-btn" id="searchClose" aria-label="Tutup pencarian">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <div class="search-overlay__hint" id="searchHint">Ketik kata kunci lalu tekan Enter. Coba: "Raja Ampat", "Waisai", "ekonomi", "wayag".</div>
+      <div class="search-overlay__results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <main id="main">
+
+    <!-- HOME VIEW -->
+    <div id="viewHome" class="view">
+
+      <!-- HERO -->
+      <section class="hero" aria-label="Berita utama">
+        <div class="container hero__grid">
+          <article class="hero__main" id="heroMain">
+            <!-- populated by JS -->
+          </article>
+          <aside class="hero__side" aria-label="Berita populer">
+            <h2 class="section-label section-label--side">Popular Now</h2>
+            <div class="hero__side-list" id="heroSideList">
+              <!-- populated by JS -->
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- LATEST NEWS -->
+      <section class="block" aria-label="Berita terbaru">
+        <div class="container">
+          <div class="block__head">
+            <h2 class="block__title"><span class="block__title-bar"></span>Latest News</h2>
+            <a href="#" class="block__more" data-cat="national">Lihat semua <svg viewBox="0 0 24 24" width="14" height="14"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="card-grid" id="latestGrid">
+            <!-- populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- RAJA AMPAT SECTION -->
+      <section class="block block--accent" id="rajaAmpatSection" aria-label="Raja Ampat terbaru">
+        <div class="container">
+          <div class="block__head">
+            <h2 class="block__title block__title--ocean"><span class="block__title-bar"></span>Raja Ampat Latest</h2>
+            <a href="#" class="block__more" data-cat="raja-ampat">Selengkapnya <svg viewBox="0 0 24 24" width="14" height="14"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="split">
+            <div class="split__main" id="rajaMain"></div>
+            <div class="split__list" id="rajaList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAPUA BARAT DAYA + NATIONAL/WORLD -->
+      <section class="block" aria-label="Papua Barat Daya">
+        <div class="container">
+          <div class="block__head">
+            <h2 class="block__title"><span class="block__title-bar"></span>Papua Barat Daya</h2>
+            <a href="#" class="block__more" data-cat="papua-barat-daya">Selengkapnya <svg viewBox="0 0 24 24" width="14" height="14"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="card-grid card-grid--3" id="pbdGrid"></div>
+        </div>
+      </section>
+
+      <!-- TWO COLUMN: NATIONAL + WORLD with trending sidebar -->
+      <section class="block" aria-label="Nasional dan dunia">
+        <div class="container two-col">
+          <div class="two-col__main">
+            <div class="tabs" id="natWorldTabs" role="tablist">
+              <button class="tab tab--active" role="tab" data-tab="national">National News</button>
+              <button class="tab" role="tab" data-tab="world">World News</button>
+            </div>
+            <div class="tab-panels">
+              <div class="tab-panel tab-panel--active" id="panel-national">
+                <div class="card-grid card-grid--2" id="nationalGrid"></div>
+              </div>
+              <div class="tab-panel" id="panel-world">
+                <div class="card-grid card-grid--2" id="worldGrid"></div>
+              </div>
+            </div>
+          </div>
+          <aside class="two-col__side" aria-label="Tren dan terpopuler">
+            <div class="widget">
+              <h3 class="widget__title"><span class="widget__dot"></span>Trending Today</h3>
+              <ol class="trend-list" id="trendList"></ol>
+            </div>
+            <div class="widget widget--alt">
+              <h3 class="widget__title"><span class="widget__dot"></span>Most Read</h3>
+              <ol class="mostread-list" id="mostReadList"></ol>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- PHOTO STORY -->
+      <section class="block block--dark" id="photoSection" aria-label="Cerita foto">
+        <div class="container">
+          <div class="block__head block__head--on-dark">
+            <h2 class="block__title block__title--light"><span class="block__title-bar"></span>OMBAR Photo</h2>
+            <span class="block__sub">Visual stories from Raja Ampat &amp; beyond</span>
+          </div>
+          <div class="photo-grid" id="photoGrid"></div>
+        </div>
+      </section>
+
+      <!-- VIDEO NEWS -->
+      <section class="block" id="videoSection" aria-label="Berita video">
+        <div class="container">
+          <div class="block__head">
+            <h2 class="block__title"><span class="block__title-bar"></span>OMBAR Video</h2>
+            <span class="block__sub">Tonton sorotan dari kepulauan Raja Ampat</span>
+          </div>
+          <div class="video-grid" id="videoGrid"></div>
+        </div>
+      </section>
+
+      <!-- NEWSLETTER -->
+      <section class="newsletter" id="newsletter">
+        <div class="container newsletter__inner">
+          <div class="newsletter__wave" aria-hidden="true">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 60c150 0 150-40 300-40s150 40 300 40 150-40 300-40 150 40 300 40v60H0z" fill="currentColor" opacity=".12"/></svg>
+          </div>
+          <div class="newsletter__content">
+            <h2 class="newsletter__title">Stay Updated with OMBAR NEWS</h2>
+            <p class="newsletter__text">Get the latest stories from Raja Ampat and beyond — straight to your inbox.</p>
+            <form class="newsletter__form" id="newsletterForm">
+              <input type="email" id="newsletterEmail" class="newsletter__input" placeholder="Alamat email Anda" required aria-label="Alamat email" />
+              <button type="submit" class="btn btn--primary newsletter__btn">Subscribe</button>
+            </form>
+            <p class="newsletter__note" id="newsletterNote" role="status"></p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /viewHome -->
+
+    <!-- ARTICLE VIEW -->
+    <div id="viewArticle" class="view view--hidden" aria-hidden="true">
+      <article class="article" id="articleContainer">
+        <!-- populated by JS -->
+      </article>
+    </div>
+
+    <!-- CATEGORY VIEW -->
+    <div id="viewCategory" class="view view--hidden" aria-hidden="true">
+      <div class="container">
+        <nav class="breadcrumb" id="catBreadcrumb" aria-label="Breadcrumb">
+          <a href="#" data-nav="home">Home</a>
+          <span class="breadcrumb__sep">/</span>
+          <span id="catCrumbCurrent">Kategori</span>
+        </nav>
+        <header class="cat-header">
+          <h1 class="cat-header__title" id="catTitle">Kategori</h1>
+          <p class="cat-header__desc" id="catDesc"></p>
+        </header>
+        <div class="cat-grid" id="catGrid"></div>
+        <div class="empty-state" id="catEmpty" hidden>
+          <p>Belum ada artikel di kategori ini.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH VIEW -->
+    <div id="viewSearch" class="view view--hidden" aria-hidden="true">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="#" data-nav="home">Home</a>
+          <span class="breadcrumb__sep">/</span>
+          <span>Pencarian</span>
+        </nav>
+        <header class="cat-header">
+          <h1 class="cat-header__title" id="searchViewTitle">Hasil Pencarian</h1>
+          <p class="cat-header__desc" id="searchViewDesc"></p>
+        </header>
+        <div class="cat-grid" id="searchViewGrid"></div>
+        <div class="empty-state" id="searchViewEmpty" hidden>
+          <p>Tidak ada hasil ditemukan.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="footer">
+    <div class="container footer__top">
+      <div class="footer__brand">
+        <a href="#" class="brand brand--footer" data-nav="home" aria-label="OMBAR NEWS beranda">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 64 40" width="44" height="28">
+              <path d="M2 24c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M2 32c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".55"/>
+              <circle cx="52" cy="8" r="4" fill="currentColor" opacity=".9"/>
+            </svg>
+          </span>
+          <span class="brand__text">
+            <span class="brand__main">OMBAR</span>
+            <span class="brand__sub">NEWS</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Raja Ampat &amp; Beyond</p>
+        <p class="footer__about">Portal berita digital yang menyoroti Raja Ampat, Papua Barat Daya, Papua, Indonesia, dan dunia. Jurnalisme yang dekat dengan laut, kepulauan, dan masyarakat.</p>
+        <div class="footer__socials" aria-label="Media sosial">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2c-2.1 0-3.9 1.7-3.9 3.9S9.9 13.2 12 13.2s3.9-1.7 3.9-3.9S14.1 5.4 12 5.4zm0 6.4c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.8 12 6.8s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zm4.9-6.6c0 .5-.4.9-.9.9s-.9-.4-.9-.9.4-.9.9-.9.9.4.9.9z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M16 3c.3 2.2 1.8 4 4 4.3v3c-1.5 0-2.9-.5-4-1.3v6.3c0 3.4-2.7 6.1-6.1 6.1S3.8 18.7 3.8 15.3 6.5 9.2 9.9 9.2c.3 0 .7 0 1 .1v3.1c-.3-.1-.6-.2-1-.2-1.7 0-3 1.4-3 3.1s1.4 3 3 3 3-1.4 3-3V3h3.1z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M22 8.2c-.2-1.2-.7-2-2-2.2C18 5.6 12 5.6 12 5.6s-6 0-8 .4c-1.3.2-1.8 1-2 2.2C2 9.5 2 12 2 12s0 2.5.2 3.8c.2 1.2.7 2 2 2.2 2 .4 8 .4 8 .4s6 0 8-.4c1.3-.2 1.8-1 2-2.2.2-1.3.2-3.8.2-3.8s0-2.5-.2-3.8zM10 15.3V8.7l5.2 3.3L10 15.3z"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.2L4.5 21H1.5l7.4-8.5L1 3h6.6l4.5 5.6L17.5 3zm-1.1 16h1.7L7.7 4.8H5.9l10.5 14.2z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4 class="footer__heading">Sections</h4>
+          <ul>
+            <li><a href="#" data-cat="raja-ampat">Raja Ampat</a></li>
+            <li><a href="#" data-cat="papua-barat-daya">Papua Barat Daya</a></li>
+            <li><a href="#" data-cat="papua">Papua</a></li>
+            <li><a href="#" data-cat="national">National</a></li>
+            <li><a href="#" data-cat="world">World</a></li>
+            <li><a href="#" data-cat="travel">Travel</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading">Topics</h4>
+          <ul>
+            <li><a href="#" data-cat="politics">Politics</a></li>
+            <li><a href="#" data-cat="economy">Economy</a></li>
+            <li><a href="#" data-cat="sports">Sports</a></li>
+            <li><a href="#" data-cat="culture">Culture</a></li>
+            <li><a href="#" data-nav="home">Latest</a></li>
+            <li><a href="#" data-action="subscribe">Newsletter</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading">Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Editorial Policy</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Advertise With Us</a></li>
+            <li><a href="tutorial.html">📚 Tutorial Posting</a></li>
+            <li><a href="admin.html">Admin Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© <span id="year">2026</span> OMBAR NEWS. All Rights Reserved.</p>
+        <p class="footer__made">Dibuat dengan semangat kepulauan Raja Ampat.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas" title="Kembali ke atas">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M12 19V5M6 11l6-6 6 6"/></svg>
+  </button>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data-store.js" defer></script>
+  <script src="images-data.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

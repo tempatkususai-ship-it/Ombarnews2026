@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download OMBAR NEWS — Source Code ZIP</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    :root {
+      --navy-900: #0A1A2F; --navy-700: #12345C; --ocean: #0A6E8C;
+      --turquoise: #06B6D4; --turquoise-soft: #40E0D0;
+      --text: #0F1E33; --text-mute: #6B7E94;
+      --font-display: "Playfair Display", Georgia, serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --font-label: "Oswald", "Inter", sans-serif;
+    }
+    body {
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(150deg, var(--navy-900) 0%, var(--navy-700) 70%, var(--ocean) 130%);
+      color: #fff; padding: 24px; position: relative; overflow: hidden;
+    }
+    .wave { position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none; }
+    .wave svg { width: 100%; height: auto; display: block; }
+    .card {
+      position: relative; z-index: 2; width: 100%; max-width: 560px;
+      background: #fff; color: var(--text); border-radius: 24px;
+      padding: 48px 40px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.5);
+    }
+    .brand { display: flex; align-items: center; gap: 14px; color: var(--turquoise); margin-bottom: 24px; }
+    .brand__text { display: flex; flex-direction: column; line-height: .85; }
+    .brand__main { font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--navy-900); }
+    .brand__sub { font-family: var(--font-label); font-weight: 600; font-size: 12px; letter-spacing: 5px; color: var(--turquoise); margin-top: 3px; }
+    h1 { font-family: var(--font-display); font-weight: 800; font-size: 30px; line-height: 1.15; margin-bottom: 10px; }
+    .sub { color: var(--text-mute); font-size: 15px; margin-bottom: 28px; line-height: 1.6; }
+    .download-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      width: 100%; padding: 18px 24px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--turquoise), var(--ocean));
+      color: #fff; font-family: var(--font-label); font-weight: 700;
+      font-size: 16px; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none; box-shadow: 0 10px 24px -8px rgba(6,182,212,.5);
+      transition: transform .2s, box-shadow .2s; margin-bottom: 16px;
+    }
+    .download-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -8px rgba(6,182,212,.7); }
+    .download-btn:active { transform: translateY(0); }
+    .file-info {
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+      padding: 14px; background: #F4F7FB; border-radius: 10px; font-size: 13px; color: var(--text-mute);
+    }
+    .file-info span { display: inline-flex; align-items: center; gap: 6px; }
+    .file-info b { color: var(--text); font-weight: 600; }
+    .steps {
+      margin-top: 28px; padding-top: 24px; border-top: 1px solid #E1E8F0;
+    }
+    .steps h2 { font-family: var(--font-label); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-mute); margin-bottom: 14px; }
+    .steps ol { padding-left: 18px; counter-reset: step; }
+    .steps li { list-style: decimal; margin-bottom: 8px; font-size: 13.5px; color: var(--text); line-height: 1.6; }
+    .steps li code { background: #F4F7FB; padding: 1px 6px; border-radius: 4px; font-size: 12px; color: var(--ocean); }
+    .links { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .links a { flex: 1; min-width: 140px; text-align: center; padding: 10px 14px; border-radius: 8px; background: #F4F7FB; color: var(--text-mute); font-size: 13px; font-weight: 500; text-decoration: none; border: 1px solid #E1E8F0; transition: background .2s, color .2s; }
+    .links a:hover { background: #EAF1F8; color: var(--text); }
+    @media (max-width: 480px) { .card { padding: 36px 24px; } h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 60c150 0 150-40 300-40s150 40 300 40 150-40 300-40 150 40 300 40v60H0z" fill="#06B6D4" opacity=".15"/></svg>
+  </div>
+
+  <main class="card">
+    <div class="brand">
+      <span aria-hidden="true">
+        <svg viewBox="0 0 64 40" width="48" height="30">
+          <path d="M2 24c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M2 32c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".55"/>
+          <circle cx="52" cy="8" r="4" fill="currentColor" opacity=".9"/>
+        </svg>
+      </span>
+      <span class="brand__text">
+        <span class="brand__main">OMBAR</span>
+        <span class="brand__sub">NEWS</span>
+      </span>
+    </div>
+
+    <h1>Download Source Code</h1>
+    <p class="sub">Unduh seluruh source code website OMBAR NEWS dalam satu file ZIP — siap di-upload ke GitHub Pages &amp; Cloudflare Pages.</p>
+
+    <a class="download-btn" href="ombar-news.zip" download>
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+      <span>Download ombar-news.zip</span>
+    </a>
+
+    <div class="file-info">
+      <span>📦 <b>1.7 MB</b></span>
+      <span>📄 <b>21 file</b></span>
+      <span>📁 <b>HTML+CSS+JS+Admin+Gambar</b></span>
+    </div>
+
+    <div class="steps">
+      <h2>Langkah selanjutnya</h2>
+      <ol>
+        <li><b>Ekstrak</b> ZIP — <code>index.html</code> akan ada di root folder.</li>
+        <li><b>GitHub:</b> push folder ke repo → Settings → Pages → branch <code>main</code> / root → Save.</li>
+        <li><b>Cloudflare Pages:</b> connect repo → build command kosong → output <code>/</code> → Deploy.</li>
+        <li>Baca <code>DEPLOY.md</code> di dalam ZIP untuk panduan lengkap.</li>
+      </ol>
+    </div>
+
+    <div class="links">
+      <a href="index.html">← Kembali ke Situs</a>
+      <a href="admin/login.html">Login Admin →</a>
+      <a href="DEPLOY.md" target="_blank">Baca DEPLOY.md</a>
+    </div>
+  </main>
+</body>
+</html>

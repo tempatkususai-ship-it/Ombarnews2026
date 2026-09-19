@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A1A2F" />
+  <title>Admin — OMBAR NEWS</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230A1A2F'/%3E%3Cpath d='M6 40c6 0 6-6 12-6s6 6 12 6 6-6 12-6 6 6 12 6 6-6 12-6' fill='none' stroke='%2300C2CB' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <style>
+/* =========================================================
+   OMBAR NEWS — Admin Dashboard styles
+   Ocean / Navy / Turquoise theme (matches public site)
+   ========================================================= */
+
+/* ---------- Tokens (mirror public site) ---------- */
+:root {
+  --navy-900: #0A1A2F;
+  --navy-800: #0E2238;
+  --navy-700: #12345C;
+  --navy-600: #1B4B7A;
+  --ocean: #0A6E8C;
+  --ocean-600: #0891B2;
+  --turquoise: #06B6D4;
+  --turquoise-soft: #40E0D0;
+
+  --bg: #F4F7FB;
+  --bg-soft: #EAF1F8;
+  --surface: #FFFFFF;
+  --surface-2: #F8FAFC;
+  --text: #0F1E33;
+  --text-soft: #46596F;
+  --text-mute: #6B7E94;
+  --border: #E1E8F0;
+  --border-strong: #CBD7E3;
+
+  --danger: #DC2626;
+  --danger-soft: #FEE2E2;
+  --warn: #B45309;
+  --warn-soft: #FEF3C7;
+  --ok: #059669;
+  --ok-soft: #D1FAE5;
+  --info: #0284C7;
+  --info-soft: #E0F2FE;
+
+  --shadow-sm: 0 1px 2px rgba(10,26,47,.06), 0 1px 3px rgba(10,26,47,.05);
+  --shadow-md: 0 4px 12px rgba(10,26,47,.08), 0 2px 6px rgba(10,26,47,.05);
+  --shadow-lg: 0 20px 40px -16px rgba(10,26,47,.22), 0 8px 18px -10px rgba(10,26,47,.12);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 20px;
+
+  --sidebar-w: 248px;
+  --topbar-h: 64px;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-label: "Oswald", "Inter", sans-serif;
+
+  --transition: 200ms cubic-bezier(.4,0,.2,1);
+}
+
+[data-theme="dark"] {
+  --bg: #07101F;
+  --bg-soft: #0B1525;
+  --surface: #0F1B2E;
+  --surface-2: #142239;
+  --text: #E8EEF6;
+  --text-soft: #B6C2D2;
+  --text-mute: #8B9Aae;
+  --border: #1E2D47;
+  --border-strong: #2A3C5A;
+  --navy-900: #050B14;
+  --shadow-md: 0 6px 18px rgba(0,0,0,.45);
+  --shadow-lg: 0 24px 50px -18px rgba(0,0,0,.65);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 15px;
+  min-height: 100vh;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+input, select, textarea { font-family: inherit; font-size: 14px; color: var(--text); }
+ul, ol { list-style: none; }
+svg { display: block; }
+table { border-collapse: collapse; width: 100%; }
+
+/* =========================================================
+   LOGIN PAGE
+   ========================================================= */
+.auth-body {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(150deg, var(--navy-900) 0%, var(--navy-700) 70%, var(--ocean) 130%);
+  position: relative; overflow: hidden; padding: 24px;
+}
+.auth-bg { position: absolute; inset: 0; pointer-events: none; }
+.auth-bg__wave { position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; }
+.auth-wrap { position: relative; z-index: 2; width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; }
+.auth-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: #9DB1C8; font-size: 13px; font-weight: 500; margin-bottom: 22px;
+  transition: color var(--transition);
+}
+.auth-back:hover { color: var(--turquoise-soft); }
+.auth-card {
+  width: 100%; background: var(--surface); border-radius: var(--radius-lg);
+  padding: 36px 32px; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,.06);
+}
+.auth-brand { display: flex; align-items: center; gap: 14px; color: var(--turquoise); margin-bottom: 22px; }
+.auth-brand__mark { color: var(--turquoise); display: flex; }
+.auth-brand__text { display: flex; flex-direction: column; line-height: .85; }
+.auth-brand__main { font-family: var(--font-display); font-weight: 900; font-size: 26px; color: var(--navy-900); }
+.auth-brand__sub { font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 5px; color: var(--turquoise); margin-top: 3px; }
+.auth-title { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--text); margin-bottom: 6px; }
+.auth-sub { font-size: 14px; color: var(--text-mute); margin-bottom: 24px; }
+.auth-form { display: flex; flex-direction: column; gap: 16px; }
+.auth-error {
+  background: var(--danger-soft); color: var(--danger); border: 1px solid #FCA5A5;
+  padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500;
+}
+.auth-hint {
+  margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border);
+  font-size: 12.5px; color: var(--text-mute); text-align: center;
+}
+.auth-hint code { background: var(--bg-soft); padding: 2px 7px; border-radius: 5px; color: var(--ocean-600); font-weight: 600; }
+.auth-hint p { margin-top: 6px; }
+.auth-note {
+  margin-top: 22px; font-size: 11.5px; color: #9DB1C8; text-align: center; max-width: 380px; line-height: 1.6;
+}
+.auth-note code { background: rgba(255,255,255,.1); padding: 1px 5px; border-radius: 4px; }
+.auth-note strong { color: #C9D6E5; }
+
+/* ---------- Fields ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 12.5px; font-weight: 600; color: var(--text-soft); }
+.field__control {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 12px; transition: border-color var(--transition), box-shadow var(--transition);
+}
+.field__control svg { color: var(--text-mute); flex-shrink: 0; }
+.field__control:focus-within { border-color: var(--turquoise); box-shadow: 0 0 0 3px rgba(6,182,212,.15); }
+.field__control input { flex: 1; border: 0; background: transparent; padding: 12px 0; outline: none; font-size: 14px; }
+.field__toggle { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; color: var(--text-mute); border-radius: 8px; transition: background var(--transition), color var(--transition); }
+.field__toggle:hover { background: var(--bg-soft); color: var(--text); }
+.field__hint { font-size: 12px; color: var(--text-mute); }
+
+.input {
+  width: 100%; background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 11px 13px; font-size: 14px; color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition); outline: none;
+  font-family: inherit;
+}
+.input:focus { border-color: var(--turquoise); box-shadow: 0 0 0 3px rgba(6,182,212,.15); }
+.input--code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; resize: vertical; }
+textarea.input { resize: vertical; }
+
+.field--full { grid-column: 1 / -1; }
+.field--check { margin-top: 4px; }
+.check-row { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; color: var(--text); }
+.check-row input { width: 18px; height: 18px; accent-color: var(--turquoise); cursor: pointer; }
+.syntax-help { margin: 8px 0 4px; display: flex; flex-wrap: wrap; gap: 10px; font-size: 11.5px; color: var(--text-mute); }
+.syntax-help li { display: inline-flex; align-items: center; gap: 4px; }
+.syntax-help code { background: var(--bg-soft); padding: 1px 6px; border-radius: 4px; color: var(--ocean-600); font-size: 11px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-label); text-transform: uppercase; letter-spacing: .8px;
+  font-weight: 600; font-size: 13px; padding: 11px 18px; border-radius: var(--radius-sm);
+  transition: transform var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--turquoise); color: var(--navy-900); }
+.btn--primary:hover { background: var(--turquoise-soft); transform: translateY(-1px); box-shadow: 0 6px 16px -6px rgba(6,182,212,.5); }
+.btn--ghost { background: var(--bg-soft); color: var(--text-soft); border: 1px solid var(--border); }
+.btn--ghost:hover { background: var(--surface); color: var(--text); border-color: var(--border-strong); }
+.btn--danger { background: var(--danger); color: #fff; }
+.btn--danger:hover { background: #B91C1C; }
+.btn--block { width: 100%; }
+.icon-btn { width: 38px; height: 38px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; color: var(--text-soft); background: var(--bg-soft); transition: background var(--transition), color var(--transition); }
+.icon-btn:hover { background: var(--ocean-600); color: #fff; }
+
+/* =========================================================
+   DASHBOARD LAYOUT
+   ========================================================= */
+.admin-body { background: var(--bg); }
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm);
+}
+.topbar__inner { display: flex; align-items: center; gap: 16px; height: var(--topbar-h); padding: 0 20px; }
+.menu-toggle { display: none; }
+.topbar__brand { display: flex; align-items: center; gap: 12px; color: var(--turquoise); }
+.topbar__mark { display: flex; color: var(--turquoise); }
+.topbar__name { font-family: var(--font-display); font-weight: 900; font-size: 20px; color: var(--navy-900); display: flex; align-items: baseline; gap: 5px; }
+.topbar__name-sub { font-family: var(--font-label); font-size: 11px; letter-spacing: 4px; color: var(--turquoise); }
+.topbar__badge { font-family: var(--font-label); font-size: 10px; letter-spacing: 2px; font-weight: 700; background: var(--navy-900); color: var(--turquoise); padding: 3px 9px; border-radius: 5px; }
+.topbar__actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.ghost-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--text-soft); font-size: 13px; font-weight: 500; border: 1px solid var(--border); transition: background var(--transition), color var(--transition); }
+.ghost-link:hover { background: var(--surface); color: var(--text); }
+.ghost-link--danger:hover { background: var(--danger-soft); color: var(--danger); border-color: #FCA5A5; }
+.topbar__user { display: flex; align-items: center; gap: 8px; padding-left: 8px; border-left: 1px solid var(--border); }
+.topbar__avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--ocean), var(--turquoise)); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+.topbar__username { font-size: 13px; font-weight: 600; color: var(--text-soft); }
+
+/* ---------- Shell ---------- */
+.admin-shell { display: flex; min-height: calc(100vh - var(--topbar-h)); }
+.sidebar {
+  width: var(--sidebar-w); flex-shrink: 0; background: var(--navy-900); color: #C9D6E5;
+  padding: 20px 14px; display: flex; flex-direction: column; position: sticky; top: var(--topbar-h); height: calc(100vh - var(--topbar-h)); overflow-y: auto;
+}
+.sidebar__nav { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+.side-link {
+  display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: var(--radius-sm);
+  color: #9DB1C8; font-size: 14px; font-weight: 500; transition: background var(--transition), color var(--transition);
+}
+.side-link svg { flex-shrink: 0; }
+.side-link:hover { background: rgba(255,255,255,.06); color: #fff; }
+.side-link.is-active { background: rgba(6,182,212,.16); color: var(--turquoise); }
+.side-link.is-active svg { color: var(--turquoise); }
+.side-link__count { margin-left: auto; background: rgba(255,255,255,.1); color: #C9D6E5; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 10px; min-width: 22px; text-align: center; }
+.side-link.is-active .side-link__count { background: var(--turquoise); color: var(--navy-900); }
+.sidebar__foot { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.08); }
+.sidebar__version { font-family: var(--font-label); font-size: 11px; letter-spacing: 1.5px; color: var(--turquoise); font-weight: 600; }
+.sidebar__hint { font-size: 11.5px; color: #6F86A0; margin-top: 6px; line-height: 1.5; }
+.sidebar-overlay { display: none; }
+
+.admin-main { flex: 1; min-width: 0; padding: 32px 28px 60px; }
+
+/* ---------- Sections ---------- */
+.section { display: none; animation: fade .35s ease; }
+.section.is-active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.section__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.section__title { font-family: var(--font-display); font-weight: 800; font-size: 28px; color: var(--text); line-height: 1.1; }
+.section__sub { font-size: 14px; color: var(--text-mute); margin-top: 5px; }
+
+/* ---------- Stat cards ---------- */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; margin-bottom: 28px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm); }
+.stat-card__label { font-family: var(--font-label); text-transform: uppercase; letter-spacing: 1.2px; font-size: 11px; font-weight: 600; color: var(--text-mute); }
+.stat-card__value { font-family: var(--font-display); font-weight: 800; font-size: 32px; color: var(--text); line-height: 1; }
+.stat-card__trend { font-size: 12px; color: var(--ok); font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+.stat-card--accent { background: linear-gradient(135deg, var(--navy-700), var(--ocean)); color: #fff; border: none; }
+.stat-card--accent .stat-card__label { color: rgba(255,255,255,.7); }
+.stat-card--accent .stat-card__value { color: #fff; }
+.stat-card--accent .stat-card__trend { color: var(--turquoise-soft); }
+
+/* ---------- Panel ---------- */
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+.panel__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.panel__title { font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--text); }
+.panel__link { color: var(--ocean-600); font-size: 13px; font-weight: 600; }
+.panel__body { padding: 18px 20px; }
+.panel--info { background: var(--info-soft); border-color: #BAE6FD; }
+.panel--warn { background: var(--warn-soft); border-color: #FDE68A; }
+.panel--info .panel__title, .panel--warn .panel__title { color: var(--text); }
+
+/* ---------- Howto ---------- */
+.howto { padding-left: 18px; counter-reset: step; }
+.howto li { list-style: decimal; margin-bottom: 10px; font-size: 14px; line-height: 1.6; color: var(--text-soft); }
+.howto li strong { color: var(--text); }
+.howto code { background: var(--bg); padding: 1px 6px; border-radius: 4px; font-size: 12.5px; color: var(--ocean-600); }
+
+/* ---------- Recent list ---------- */
+.recent-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.recent-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.recent-item__thumb { width: 54px; height: 40px; border-radius: 7px; overflow: hidden; background: var(--bg-soft); flex-shrink: 0; }
+.recent-item__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.recent-item__body { flex: 1; min-width: 0; }
+.recent-item__title { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.recent-item__meta { font-size: 11.5px; color: var(--text-mute); margin-top: 2px; }
+
+/* ---------- Toolbar ---------- */
+.toolbar { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.search-mini { flex: 1; min-width: 200px; display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 14px; box-shadow: var(--shadow-sm); }
+.search-mini svg { color: var(--text-mute); flex-shrink: 0; }
+.search-mini input { flex: 1; border: 0; background: transparent; padding: 11px 0; outline: none; font-size: 14px; }
+.select-mini { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 11px 14px; font-size: 14px; color: var(--text); outline: none; cursor: pointer; box-shadow: var(--shadow-sm); min-width: 160px; }
+.select-mini:focus { border-color: var(--turquoise); }
+
+/* ---------- Data table ---------- */
+.table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.data-table { width: 100%; }
+.data-table thead th { background: var(--surface-2); text-align: left; font-family: var(--font-label); text-transform: uppercase; letter-spacing: 1px; font-size: 11px; font-weight: 600; color: var(--text-mute); padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.data-table tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); font-size: 13.5px; color: var(--text); vertical-align: middle; }
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table tbody tr { transition: background var(--transition); }
+.data-table tbody tr:hover { background: var(--surface-2); }
+.ta-right { text-align: right; }
+.cell-title { font-weight: 600; color: var(--text); max-width: 340px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.cat-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 4px; color: #fff; background: var(--ocean); }
+.cat-pill[data-cat="raja-ampat"] { background: #0A6E8C; }
+.cat-pill[data-cat="papua-barat-daya"] { background: #B4530A; }
+.cat-pill[data-cat="papua"] { background: #7C3AED; }
+.cat-pill[data-cat="national"] { background: #047857; }
+.cat-pill[data-cat="world"] { background: #1D4ED8; }
+.cat-pill[data-cat="politics"] { background: #BE123C; }
+.cat-pill[data-cat="economy"] { background: #B45309; }
+.cat-pill[data-cat="sports"] { background: #047857; }
+.cat-pill[data-cat="culture"] { background: #9333EA; }
+.cat-pill[data-cat="travel"] { background: #0E7490; }
+.row-actions { display: inline-flex; gap: 6px; }
+.row-btn { width: 32px; height: 32px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-soft); color: var(--text-soft); transition: background var(--transition), color var(--transition); }
+.row-btn:hover { background: var(--ocean-600); color: #fff; }
+.row-btn--danger:hover { background: var(--danger); color: #fff; }
+.empty-state { padding: 50px 20px; text-align: center; color: var(--text-mute); font-size: 14px; }
+
+/* ---------- Forms ---------- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.form-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.row-form { display: flex; gap: 10px; margin-bottom: 16px; }
+.row-form .input { flex: 1; }
+.btn-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.file-upload { position: relative; cursor: pointer; display: inline-flex; }
+.muted { font-size: 12.5px; color: var(--text-mute); margin-top: 10px; line-height: 1.6; }
+.muted code { background: var(--bg-soft); padding: 1px 5px; border-radius: 4px; color: var(--ocean-600); }
+
+/* ---------- Breaking chips ---------- */
+.chip-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.chip { display: flex; align-items: center; gap: 10px; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 12px; }
+.chip__text { flex: 1; font-size: 13.5px; color: var(--text); }
+.chip__remove { width: 28px; height: 28px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; color: var(--danger); background: transparent; transition: background var(--transition); }
+.chip__remove:hover { background: var(--danger-soft); }
+
+/* ---------- Image picker ---------- */
+.image-picker { display: flex; gap: 8px; }
+.image-picker .input { flex: 1; }
+.image-picker .select-mini { min-width: 160px; flex-shrink: 0; box-shadow: none; }
+.image-preview { margin-top: 8px; width: 100%; height: 140px; border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-soft); border: 1px dashed var(--border-strong); display: flex; align-items: center; justify-content: center; color: var(--text-mute); font-size: 12.5px; }
+.image-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Data grid ---------- */
+.data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+.modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; visibility: hidden; opacity: 0; transition: opacity var(--transition), visibility var(--transition); }
+.modal.is-open { visibility: visible; opacity: 1; }
+.modal__backdrop { position: absolute; inset: 0; background: rgba(7,16,31,.6); backdrop-filter: blur(3px); }
+.modal__dialog { position: relative; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); width: 100%; max-width: 760px; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; transform: translateY(12px) scale(.98); transition: transform var(--transition); }
+.modal.is-open .modal__dialog { transform: translateY(0) scale(1); }
+.modal--small .modal__dialog { max-width: 420px; }
+.modal__head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.modal__title { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--text); }
+.modal__body { padding: 22px; overflow-y: auto; flex: 1; }
+.modal__foot { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 22px; border-top: 1px solid var(--border); background: var(--surface-2); }
+.modal__foot .btn { min-width: 110px; }
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 20px);
+  background: var(--navy-900); color: #fff; padding: 12px 20px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 2000;
+  opacity: 0; visibility: hidden; transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  border-left: 3px solid var(--turquoise); max-width: 90vw;
+}
+.toast.is-show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.toast--error { border-left-color: var(--danger); }
+.toast--ok { border-left-color: var(--ok); }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1024px) {
+  .menu-toggle { display: inline-flex; }
+  .sidebar {
+    position: fixed; left: 0; top: var(--topbar-h); bottom: 0; z-index: 40;
+    transform: translateX(-100%); transition: transform 300ms cubic-bezier(.4,0,.2,1);
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.is-open { transform: translateX(0); }
+  .sidebar-overlay { display: block; position: fixed; inset: var(--topbar-h) 0 0 0; background: rgba(7,16,31,.5); z-index: 39; opacity: 0; visibility: hidden; transition: opacity var(--transition), visibility var(--transition); }
+  .sidebar-overlay.is-open { opacity: 1; visibility: visible; }
+  .admin-main { padding: 24px 20px 50px; }
+}
+@media (max-width: 760px) {
+  .topbar__name { font-size: 17px; }
+  .topbar__badge { display: none; }
+  .topbar__username { display: none; }
+  .ghost-link span { display: none; }
+  .ghost-link { padding: 8px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field--full { grid-column: 1; }
+  .data-table thead { display: none; }
+  .data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
+  .data-table tr { border-bottom: 1px solid var(--border); padding: 12px 14px; }
+  .data-table tbody td { border: 0; padding: 4px 0; }
+  .data-table tbody td:before { content: attr(data-label); display: block; font-family: var(--font-label); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-mute); margin-bottom: 2px; }
+  .ta-right { text-align: left; }
+  .row-actions { margin-top: 6px; }
+  .section__title { font-size: 23px; }
+  .modal__dialog { max-height: 96vh; }
+}
+@media (max-width: 420px) {
+  .auth-card { padding: 26px 22px; }
+  .stat-card__value { font-size: 26px; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: var(--bg-soft); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 9px; border: 2px solid var(--bg-soft); }
+::-webkit-scrollbar-thumb:hover { background: var(--ocean); }
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border: 0; border-radius: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+
+/* ===== Standalone admin.html: view toggling ===== */
+#authView { display: none; min-height: 100vh; }
+#authView.is-show { display: flex; }
+#dashboardView { display: none; min-height: 100vh; }
+#dashboardView.is-show { display: block; }
+body.auth-body { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ============ AUTH VIEW (login) ============ -->
+<div id="authView" class="auth-body">
+  <div class="auth-bg" aria-hidden="true">
+    <svg viewBox="0 0 1200 320" preserveAspectRatio="xMidYMax slice" class="auth-bg__wave">
+      <path d="M0 200c150 0 150-60 300-60s150 60 300 60 150-60 300-60 150 60 300 60v120H0z" fill="#06B6D4" opacity=".10"/>
+      <path d="M0 240c150 0 150-60 300-60s150 60 300 60 150-60 300-60 150 60 300 60v120H0z" fill="#06B6D4" opacity=".14"/>
+      <path d="M0 280c150 0 150-50 300-50s150 50 300 50 150-50 300-50 150 50 300 50v60H0z" fill="#0A1A2F" opacity=".9"/>
+    </svg>
+  </div>
+  <main class="auth-wrap">
+    <a href="index.html" class="auth-back">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Kembali ke situs
+    </a>
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="auth-brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 64 40" width="56" height="34">
+            <path d="M2 24c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M2 32c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".55"/>
+            <circle cx="52" cy="8" r="4" fill="currentColor" opacity=".9"/>
+          </svg>
+        </span>
+        <span class="auth-brand__text">
+          <span class="auth-brand__main">OMBAR</span>
+          <span class="auth-brand__sub">NEWS ADMIN</span>
+        </span>
+      </div>
+      <h1 class="auth-title">Masuk ke Dashboard</h1>
+      <p class="auth-sub">Kelola artikel, pengaturan situs, dan berita breaking Anda.</p>
+      <form id="loginForm" class="auth-form" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <div class="field__control">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 20a8 8 0 0116 0"/></svg>
+            <input type="text" id="username" name="username" autocomplete="username" placeholder="admin" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="field__control">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 10V8a6 6 0 1112 0v2M5 10h14v10H5z"/></svg>
+            <input type="password" id="password" name="password" autocomplete="current-password" placeholder="••••••••" required />
+            <button type="button" class="field__toggle" id="togglePass" aria-label="Tampilkan password">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7zm10 3a3 3 0 100-6 3 3 0 000 6z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="auth-error" id="loginError" role="alert" hidden></div>
+        <button type="submit" class="btn btn--primary btn--block" id="loginBtn">
+          <span class="btn__label">Masuk</span>
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <div class="auth-hint">
+        <strong>Kredensial default:</strong>
+        <code>admin</code> / <code>ombar2026</code>
+        <p>Ubah password setelah login melalui menu <em>Security</em>.</p>
+      </div>
+    </div>
+    <p class="auth-note">⚠️ Login ini berbasis <strong>client-side</strong>. Untuk keamanan produksi, hubungkan dengan backend/auth provider.</p>
+  </main>
+</div>
+
+<!-- ============ DASHBOARD VIEW ============ -->
+<div id="dashboardView">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Buka menu navigasi">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a href="admin.html" class="topbar__brand">
+        <span class="topbar__mark" aria-hidden="true">
+          <svg viewBox="0 0 64 40" width="36" height="22">
+            <path d="M2 24c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M2 32c7 0 7-7 14-7s7 7 14 7 7-7 14-7 7 7 14 7" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".55"/>
+            <circle cx="52" cy="8" r="4" fill="currentColor" opacity=".9"/>
+          </svg>
+        </span>
+        <span class="topbar__name">OMBAR<span class="topbar__name-sub">NEWS</span></span>
+        <span class="topbar__badge">ADMIN</span>
+      </a>
+      <div class="topbar__actions">
+        <a href="index.html" class="ghost-link" target="_blank" rel="noopener" title="Lihat situs">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M14 5h5v5M19 5l-9 9M12 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-6"/></svg>
+          <span>Lihat Situs</span>
+        </a>
+        <div class="topbar__user">
+          <span class="topbar__avatar" id="userAvatar">A</span>
+          <span class="topbar__username" id="userName">admin</span>
+        </div>
+        <button class="ghost-link ghost-link--danger" id="logoutBtn" title="Keluar">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          <span>Keluar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <nav class="sidebar__nav" aria-label="Navigasi admin">
+        <a href="#overview" class="side-link is-active" data-section="overview">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="#articles" class="side-link" data-section="articles">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/></svg>
+          <span>Articles</span>
+          <span class="side-link__count" id="countArticles">0</span>
+        </a>
+        <a href="#breaking" class="side-link" data-section="breaking">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          <span>Breaking News</span>
+        </a>
+        <a href="#settings" class="side-link" data-section="settings">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 15a3 3 0 100-6 3 3 0 000 6zM19 12a7 7 0 00-.1-1l2-1.5-2-3.5-2.4.9a7 7 0 00-1.7-1l-.3-2.5h-4l-.3 2.5a7 7 0 00-1.7 1l-2.4-.9-2 3.5 2 1.5a7 7 0 000 2l-2 1.5 2 3.5 2.4-.9a7 7 0 001.7 1l.3 2.5h4l.3-2.5a7 7 0 001.7-1l2.4.9 2-3.5-2-1.5c.1-.3.1-.7.1-1z"/></svg>
+          <span>Settings</span>
+        </a>
+        <a href="#security" class="side-link" data-section="security">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+          <span>Security</span>
+        </a>
+        <a href="#data" class="side-link" data-section="data">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          <span>Export / Import</span>
+        </a>
+      </nav>
+      <div class="sidebar__foot">
+        <p class="sidebar__version">OMBAR CMS v1.0</p>
+        <p class="sidebar__hint">Data disimpan di browser (localStorage). Export untuk publikasi.</p>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main -->
+    <main class="admin-main" id="adminMain">
+
+      <!-- OVERVIEW -->
+      <section class="section is-active" id="sec-overview">
+        <header class="section__head">
+          <div>
+            <h1 class="section__title">Overview</h1>
+            <p class="section__sub">Ringkasan cepat konten situs OMBAR NEWS.</p>
+          </div>
+        </header>
+        <div class="stat-grid" id="statGrid"></div>
+
+        <div class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">Artikel Terbaru</h2>
+            <a href="#articles" class="panel__link" data-section="articles">Kelola semua →</a>
+          </div>
+          <div class="panel__body" id="recentList"></div>
+        </div>
+
+        <div class="panel panel--info">
+          <div class="panel__head">
+            <h2 class="panel__title">Alur Publikasi (Hosting Statis)</h2>
+          </div>
+          <div class="panel__body">
+            <ol class="howto">
+              <li>Edit artikel / pengaturan di dashboard ini — perubahan langsung tampil di situs pada browser yang sama.</li>
+              <li>Klik <strong>Export</strong> di menu <em>Export / Import</em> untuk mengunduh <code>ombar-data.json</code>.</li>
+              <li>Commit & push file tersebut ke repo GitHub Anda (atau timpa <code>data-store.js</code>), lalu deploy ulang.</li>
+              <li>Deploy ke <strong>GitHub Pages</strong> atau <strong>Cloudflare Pages</strong> — lihat <code>DEPLOY.md</code> di dalam ZIP.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARTICLES -->
+      <section class="section" id="sec-articles">
+        <header class="section__head">
+          <div>
+            <h1 class="section__title">Articles</h1>
+            <p class="section__sub">Tambah, edit, atau hapus artikel berita.</p>
+          </div>
+          <button class="btn btn--primary" id="newArticleBtn">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+            <span>Artikel Baru</span>
+          </button>
+        </header>
+
+        <div class="toolbar">
+          <div class="search-mini">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M11 4a7 7 0 100 14 7 7 0 000-14zm5.5 12.5L21 21"/></svg>
+            <input type="search" id="articleSearch" placeholder="Cari artikel..." />
+          </div>
+          <select id="filterCategory" class="select-mini"><option value="">Semua kategori</option></select>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Judul</th>
+                <th>Kategori</th>
+                <th>Penulis</th>
+                <th>Tanggal</th>
+                <th>Baca</th>
+                <th class="ta-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="articleTbody"></tbody>
+          </table>
+          <div class="empty-state" id="articlesEmpty" hidden>Tidak ada artikel yang cocok.</div>
+        </div>
+      </section>
+
+      <!-- BREAKING -->
+      <section class="section" id="sec-breaking">
+        <header class="section__head">
+          <div>
+            <h1 class="section__title">Breaking News</h1>
+            <p class="section__sub">Kelola item ticker berita berjalan. Kosongkan untuk menampilkan artikel terbaru otomatis.</p>
+          </div>
+        </header>
+        <div class="panel">
+          <div class="panel__body">
+            <form class="row-form" id="breakingForm">
+              <input type="text" id="breakingInput" class="input" placeholder="Tulis berita breaking..." />
+              <button type="submit" class="btn btn--primary">Tambah</button>
+            </form>
+            <ul class="chip-list" id="breakingList"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="section" id="sec-settings">
+        <header class="section__head">
+          <div>
+            <h1 class="section__title">Settings</h1>
+            <p class="section__sub">Identitas dan teks global situs.</p>
+          </div>
+        </header>
+        <form class="panel form-grid" id="settingsForm">
+          <div class="field">
+            <label for="setSiteName">Nama Situs</label>
+            <input type="text" id="setSiteName" class="input" />
+          </div>
+          <div class="field">
+            <label for="setTagline">Tagline</label>
+            <input type="text" id="setTagline" class="input" />
+          </div>
+          <div class="field field--full">
+            <label for="setDesc">Meta Description</label>
+            <textarea id="setDesc" class="input" rows="2"></textarea>
+          </div>
+          <div class="field field--full">
+            <label for="setAbout">Tentang (Footer)</label>
+            <textarea id="setAbout" class="input" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label for="setBreakingLabel">Label Ticker</label>
+            <input type="text" id="setBreakingLabel" class="input" />
+          </div>
+          <div class="form-actions field--full">
+            <button type="submit" class="btn btn--primary">Simpan Pengaturan</button>
+            <button type="button" class="btn btn--ghost" id="settingsReset">Reset ke Default</button>
+          </div>
+        </form>
+
+        </form>
+      </section>
+
+      <!-- SECURITY -->
+      <section class="section" id="sec-security">
+        <header class="section__head">
+          <div>
+            <h1 class="section__title">Security</h1>
+            <p class="section__sub">Ubah kredensial login admin.</p>
+          </div>
+        </header>
+        <form class="panel form-grid" id="credForm">
+          <div class="field">
+            <label for="credUser">Username Baru</label>
+            <input type="text" id="credUser" class="input" autocomplete="username" />
+          </div>
+          <div class="field">
+            <label for="credPass">Password Baru</label>
+            <input type="password" id="credPass" class="input" autocomplete="new-password" />
+          </div>
+          <div class="field">
+            <label for="credPass2">Konfirmasi Password</label>
+            <input type="password" id="credPass2" class="input" autocomplete="new-password" />
+          </div>
+          <div class="form-actions field--full">
+            <button type="submit" class="btn btn--primary">Perbarui Kredensial</button>
+          </div>
+        </form>
+        <div class="panel panel--warn">
+          <div class="panel__body">
+            <p><strong>Catatan:</strong> Kredensial disimpan di <code>localStorage</code> browser admin. Ini bukan pengganti autentikasi server. Siapa pun yang membuka dashboard di browser yang sama bisa login setelah kredensial disetel. Untuk keamanan produksi, gunakan auth backend.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DATA (Export / Import / Reset) -->
+      <section class="section" id="sec-data">
+        <header class="section__head">
+          <div>
+            <h1 class="section__title">Export / Import Data</h1>
+            <p class="section__sub">Publikasikan perubahan ke hosting statis Anda.</p>
+          </div>
+        </header>
+        <div class="data-grid">
+          <div class="panel">
+            <div class="panel__head"><h2 class="panel__title">Export &amp; Publish</h2></div>
+            <div class="panel__body">
+              <p>Unduh seluruh konten (artikel, kategori, pengaturan, breaking) sebagai <code>ombar-data.json</code>.</p>
+              <div class="btn-row">
+                <button class="btn btn--ghost" id="exportBtn">
+                  <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                  <span>Download JSON</span>
+                </button>
+                <button class="btn btn--ghost" id="copyJsonBtn">Salin JSON</button>
+              </div>
+              </div>
+          </div>
+          <div class="panel panel--info">
+            <div class="panel__head"><h2 class="panel__title">Source Code (ZIP)</h2></div>
+            <div class="panel__body">
+              <p>Unduh <strong>seluruh source code website</strong> (HTML + CSS + JS + admin + gambar) sebagai satu file <code>ombar-news.zip</code> — siap di-upload ke GitHub &amp; Cloudflare Pages.</p>
+              <div class="btn-row">
+                <a class="btn btn--primary" href="ombar-news.zip" download>
+                  <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M21 8v9a3 3 0 01-3 3H6a3 3 0 01-3-3V8M12 12v8m0 0l-4-4m4 4l4-4M12 3H7a3 3 0 00-3 3v0M12 3h5a3 3 0 013 3v0M12 3v6"/></svg>
+                  <span>Download ombar-news.zip</span>
+                </a>
+                <a class="btn btn--ghost" href="DEPLOY.md" target="_blank" rel="noopener">Baca DEPLOY.md</a>
+              </div>
+              <p class="muted">Ekstrak ZIP → <code>index.html</code> ada di root → push ke repo GitHub → aktifkan Pages, atau connect repo ke Cloudflare Pages. Lihat <code>DEPLOY.md</code> untuk langkah lengkap.</p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel__head"><h2 class="panel__title">Import</h2></div>
+            <div class="panel__body">
+              <p>Muat ulang data dari file <code>ombar-data.json</code> yang sebelumnya diexport.</p>
+              <label class="btn btn--ghost file-upload">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 19V7m0 0L8 11m4-4l4 4M5 21h14"/></svg>
+                <span>Pilih file JSON</span>
+                <input type="file" id="importInput" accept="application/json,.json" hidden />
+              </label>
+              <p class="muted" id="importStatus"></p>
+            </div>
+          </div>
+          <div class="panel panel--warn">
+            <div class="panel__head"><h2 class="panel__title">Reset</h2></div>
+            <div class="panel__body">
+              <p>Hapus semua perubahan dan kembalikan ke data bawaan.</p>
+              <button class="btn btn--danger" id="resetBtn">Reset ke Default</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Article Editor Modal -->
+  <div class="modal" id="articleModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__head">
+        <h2 class="modal__title" id="modalTitle">Edit Artikel</h2>
+        <button class="icon-btn" data-close aria-label="Tutup">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <form class="modal__body" id="articleForm">
+        <input type="hidden" id="artId" />
+        <div class="form-grid">
+          <div class="field field--full">
+            <label for="artTitle">Judul Artikel *</label>
+            <input type="text" id="artTitle" class="input" required />
+          </div>
+          <div class="field">
+            <label for="artCategory">Kategori</label>
+            <select id="artCategory" class="input"></select>
+          </div>
+          <div class="field">
+            <label for="artAuthor">Penulis</label>
+            <input type="text" id="artAuthor" class="input" />
+          </div>
+          <div class="field">
+            <label for="artPublished">Tanggal Publikasi</label>
+            <input type="datetime-local" id="artPublished" class="input" />
+          </div>
+          <div class="field">
+            <label for="artReads">Jumlah Baca</label>
+            <input type="number" id="artReads" class="input" min="0" />
+          </div>
+          <div class="field field--full">
+            <label for="artExcerpt">Ringkasan (Excerpt) *</label>
+            <textarea id="artExcerpt" class="input" rows="2" required></textarea>
+          </div>
+          <div class="field field--full">
+            <label for="artImage">URL Gambar</label>
+            <div class="image-picker">
+              <input type="text" id="artImage" class="input" placeholder="images/wayag-viewpoint.jpg" />
+              <select id="artImagePicker" class="select-mini">
+                <option value="">— pilih dari library —</option>
+              </select>
+            </div>
+            <div class="image-preview" id="imagePreview"><span>Pratinjau gambar</span></div>
+          </div>
+          <div class="field field--full">
+            <label for="artTags">Tag (pisahkan koma)</label>
+            <input type="text" id="artTags" class="input" placeholder="Wayag, Wisata, Penghargaan" />
+          </div>
+          <div class="field field--full">
+            <label for="artContent">Konten Artikel *</label>
+            <p class="field__hint">Sintaks sederhana — pisahkan tiap blok dengan baris kosong:</p>
+            <ul class="syntax-help">
+              <li><code>## Judul</code> → heading</li>
+              <li><code>&gt; Kutipan — sumber</code> → blockquote dengan sitasi</li>
+              <li><code>paragraf biasa</code> → paragraf</li>
+            </ul>
+            <textarea id="artContent" class="input input--code" rows="14" required></textarea>
+          </div>
+          <div class="field field--full field--check">
+            <label class="check-row">
+              <input type="checkbox" id="artFeatured" />
+              <span>Tandai sebagai berita utama (featured)</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal__foot">
+          <button type="button" class="btn btn--ghost" data-close>Batal</button>
+          <button type="submit" class="btn btn--primary">Simpan Artikel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm dialog -->
+  <div class="modal modal--small" id="confirmModal" aria-hidden="true">
+    <div class="modal__backdrop" data-confirm-close></div>
+    <div class="modal__dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="modal__head"><h2 class="modal__title" id="confirmTitle">Konfirmasi</h2></div>
+      <div class="modal__body"><p id="confirmMsg">Apakah Anda yakin?</p></div>
+      <div class="modal__foot">
+        <button type="button" class="btn btn--ghost" data-confirm-close>Batal</button>
+        <button type="button" class="btn btn--danger" id="confirmOk">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="adminToast" role="status" aria-live="polite"></div>
+
+  
+  
+  
+
+</div><!-- /dashboardView -->
+
+<div class="toast" id="adminToast" role="status" aria-live="polite"></div>
+
+<script src="data-store.js"></script>
+<script src="images-data.js"></script>
+<script>
+/* =========================================================
+   OMBAR NEWS — Admin Dashboard logic
+   Vanilla JS. Uses data-store.js (window.OMBAR_DATA).
+   ========================================================= */
+(function () {
+  'use strict';
+
+  /* If data-store didn't load, bail. */
+  if (!window.OMBAR_DATA) {
+    document.body.innerHTML = '<p style="padding:40px;font-family:sans-serif">Data store gagal dimuat. Pastikan <code>data-store.js</code> ada.</p>';
+    return;
+  }
+  var D = window.OMBAR_DATA;
+
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+
+  /* AUTH GATE + LOGIN PAGE LOGIC removed (standalone boot handles auth) */
+
+  /* =========================================================
+     DASHBOARD LOGIC
+     ========================================================= */
+  var currentUser = D.currentUser() || 'admin';
+  $('#userName').textContent = currentUser;
+  $('#userAvatar').textContent = currentUser.charAt(0).toUpperCase();
+
+  /* ---------- Logout ---------- */
+  $('#logoutBtn').addEventListener('click', function () {
+    D.logout();
+    /* Switch to login view without full page reload */
+    document.getElementById('authView').classList.add('is-show');
+    document.getElementById('dashboardView').classList.remove('is-show');
+    document.body.classList.add('auth-body');
+  });
+
+  /* ---------- Sidebar navigation ---------- */
+  var sidebar = $('#sidebar');
+  var overlay = $('#sidebarOverlay');
+  $('#menuToggle').addEventListener('click', function () {
+    sidebar.classList.toggle('is-open');
+    overlay.classList.toggle('is-open');
+  });
+  overlay.addEventListener('click', function () {
+    sidebar.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+  });
+
+  var sections = $$('.section');
+  var sideLinks = $$('.side-link');
+  function switchSection(name) {
+    sections.forEach(function (s) { s.classList.toggle('is-active', s.id === 'sec-' + name); });
+    sideLinks.forEach(function (l) { l.classList.toggle('is-active', l.getAttribute('data-section') === name); });
+    if (window.innerWidth <= 1024) { sidebar.classList.remove('is-open'); overlay.classList.remove('is-open'); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (name === 'overview') renderOverview();
+    if (name === 'articles') renderArticleTable();
+    if (name === 'breaking') renderBreaking();
+    if (name === 'settings') fillSettingsForm();
+    if (name === 'security') fillCredForm();
+  }
+  sideLinks.forEach(function (l) {
+    l.addEventListener('click', function (e) {
+      e.preventDefault();
+      switchSection(l.getAttribute('data-section'));
+    });
+  });
+  $$('[data-section]').forEach(function (el) {
+    if (el.tagName === 'A' && el.classList.contains('panel__link')) {
+      el.addEventListener('click', function (e) { e.preventDefault(); switchSection(el.getAttribute('data-section')); });
+    }
+  });
+
+  /* ---------- Toast ---------- */
+  var toastTimer;
+  function toast(msg, type) {
+    var t = $('#adminToast');
+    t.textContent = msg;
+    t.className = 'toast' + (type ? ' toast--' + type : '');
+    t.classList.add('is-show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('is-show'); }, 3200);
+  }
+
+  /* ---------- Confirm dialog ---------- */
+  var confirmModal = $('#confirmModal');
+  var confirmCb = null;
+  function confirmDialog(msg, cb) {
+    $('#confirmMsg').textContent = msg;
+    confirmCb = cb;
+    confirmModal.classList.add('is-open');
+    confirmModal.setAttribute('aria-hidden', 'false');
+  }
+  $('#confirmOk').addEventListener('click', function () {
+    closeConfirm();
+    if (typeof confirmCb === 'function') confirmCb();
+    confirmCb = null;
+  });
+  $$('[data-confirm-close]', confirmModal).forEach(function (el) {
+    el.addEventListener('click', closeConfirm);
+  });
+  function closeConfirm() {
+    confirmModal.classList.remove('is-open');
+    confirmModal.setAttribute('aria-hidden', 'true');
+  }
+
+  /* =========================================================
+     HELPERS: content markdown-lite parsing
+     ========================================================= */
+  function parseContent(md) {
+    if (!md) return [];
+    // Normalise line endings, split into blocks on blank lines.
+    var lines = md.replace(/\r\n/g, '\n').split('\n');
+    var blocks = [];
+    var current = [];
+    function flush() {
+      if (!current.length) return;
+      var text = current.join('\n').trim();
+      current = [];
+      if (!text) return;
+      if (/^##\s+/.test(text)) {
+        blocks.push({ type: 'h2', text: text.replace(/^##\s+/, '').trim() });
+      } else if (/^###\s+/.test(text)) {
+        blocks.push({ type: 'h3', text: text.replace(/^###\s+/, '').trim() });
+      } else if (/^>\s*/.test(text)) {
+        var quote = text.replace(/^>\s*/, '').trim();
+        var cite = null;
+        var m = quote.match(/\s—\s(.+)$/);
+        if (m) { cite = m[1].trim(); quote = quote.slice(0, m.index).trim(); }
+        blocks.push({ type: 'blockquote', text: quote, cite: cite });
+      } else {
+        // Collapse internal newlines to spaces for paragraphs.
+        blocks.push({ type: 'p', text: collapseSpaces(text) });
+      }
+    }
+    function collapseSpaces(s) { return s.replace(/\n+/g, ' ').trim(); }
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].trim() === '') flush();
+      else current.push(lines[i]);
+    }
+    flush();
+    return blocks;
+  }
+  function serializeContent(blocks) {
+    return (blocks || []).map(function (b) {
+      if (b.type === 'h2') return '## ' + b.text;
+      if (b.type === 'h3') return '### ' + b.text;
+      if (b.type === 'blockquote') return '> ' + b.text + (b.cite ? ' — ' + b.cite : '');
+      return b.text;
+    }).join('\n\n');
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (m) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+    });
+  }
+  function fmtDateShort(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '—';
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function toDatetimeLocal(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  }
+  function fromDatetimeLocal(val) {
+    if (!val) return new Date().toISOString();
+    var d = new Date(val);
+    return isNaN(d) ? new Date().toISOString() : d.toISOString();
+  }
+  function slugify(s) {
+    return String(s).toLowerCase().trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .slice(0, 80);
+  }
+  function catName(cat) { return (D.getCategories()[cat] || {}).name || cat; }
+
+  /* =========================================================
+     OVERVIEW
+     ========================================================= */
+  function renderOverview() {
+    var arts = D.getArticles();
+    var cats = D.getCategories();
+    var breaking = D.getBreaking();
+    var totalReads = arts.reduce(function (a, b) { return a + (b.reads || 0); }, 0);
+    var featured = arts.filter(function (a) { return a.featured; }).length;
+
+    var grid = $('#statGrid');
+    grid.innerHTML = ''
+      + statCard('Total Artikel', arts.length, Object.keys(cats).length + ' kategori', true)
+      + statCard('Kategori', Object.keys(cats).length, 'terdaftar')
+      + statCard('Total Baca', totalReads.toLocaleString('id-ID'), 'seluruh artikel')
+      + statCard('Breaking', breaking.length, breaking.length ? 'item aktif' : 'auto dari artikel')
+      + statCard('Featured', featured, 'berita utama');
+
+    var recent = arts.slice().sort(function (a, b) { return new Date(b.publishedAt) - new Date(a.publishedAt); }).slice(0, 5);
+    $('#recentList').innerHTML = recent.length ? recent.map(function (a) {
+      return '<div class="recent-item">'
+        + '<div class="recent-item__thumb"><img src="' + resolveImg(a.image) + '" alt="" loading="lazy"></div>'
+        + '<div class="recent-item__body">'
+        + '<div class="recent-item__title">' + esc(a.title) + '</div>'
+        + '<div class="recent-item__meta"><span class="cat-pill" data-cat="' + a.category + '">' + catName(a.category) + '</span> • ' + fmtDateShort(a.publishedAt) + ' • ' + (a.reads || 0).toLocaleString('id-ID') + ' baca</div>'
+        + '</div></div>';
+    }).join('') : '<p class="muted">Belum ada artikel.</p>';
+  }
+  function statCard(label, value, trend, accent) {
+    return '<div class="stat-card' + (accent ? ' stat-card--accent' : '') + '">'
+      + '<span class="stat-card__label">' + esc(label) + '</span>'
+      + '<span class="stat-card__value">' + value + '</span>'
+      + '<span class="stat-card__trend">' + esc(trend || '') + '</span>'
+      + '</div>';
+  }
+  function resolveImg(path) {
+    if (!path) return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="60"%3E%3Crect width="100" height="60" fill="%23EAF1F8"/%3E%3C/svg%3E';
+    if (/^(data:|https?:)?\/\//.test(path)) return path;
+    // Hosting-proof: use embedded base64 if available (so images show even
+    // when the images/ folder is missing on the hosting).
+    var resolved = D.resolveImage(path);
+    if (resolved && resolved !== path) return resolved;
+    // admin/ is one level deep → ../images/...
+    return path.replace(/^images?\//, 'images/');
+  }
+
+  /* =========================================================
+     ARTICLES TABLE + FILTER + SEARCH
+     ========================================================= */
+  var filterCat = '';
+  var searchQ = '';
+
+  function populateCategorySelects() {
+    var cats = D.getCategories();
+    var opts = Object.keys(cats).map(function (k) { return '<option value="' + k + '">' + esc(cats[k].name) + '</option>'; }).join('');
+    $('#filterCategory').innerHTML = '<option value="">Semua kategori</option>' + opts;
+    $('#artCategory').innerHTML = opts;
+  }
+
+  function renderArticleTable() {
+    var arts = D.getArticles();
+    var filtered = arts.filter(function (a) {
+      if (filterCat && a.category !== filterCat) return false;
+      if (searchQ) {
+        var q = searchQ.toLowerCase();
+        if (a.title.toLowerCase().indexOf(q) < 0 && a.excerpt.toLowerCase().indexOf(q) < 0 && (a.author || '').toLowerCase().indexOf(q) < 0) return false;
+      }
+      return true;
+    }).sort(function (a, b) { return new Date(b.publishedAt) - new Date(a.publishedAt); });
+
+    var tbody = $('#articleTbody');
+    var empty = $('#articlesEmpty');
+    $('#countArticles').textContent = arts.length;
+
+    if (!filtered.length) {
+      tbody.innerHTML = '';
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+    tbody.innerHTML = filtered.map(function (a) {
+      return '<tr>'
+        + '<td data-label="Judul"><div class="cell-title">' + esc(a.title) + (a.featured ? ' <span style="color:var(--turquoise);font-size:11px">★</span>' : '') + '</div></td>'
+        + '<td data-label="Kategori"><span class="cat-pill" data-cat="' + a.category + '">' + catName(a.category) + '</span></td>'
+        + '<td data-label="Penulis">' + esc(a.author || '—') + '</td>'
+        + '<td data-label="Tanggal">' + fmtDateShort(a.publishedAt) + '</td>'
+        + '<td data-label="Baca">' + (a.reads || 0).toLocaleString('id-ID') + '</td>'
+        + '<td data-label="Aksi" class="ta-right"><div class="row-actions">'
+        + '<button class="row-btn" data-edit="' + esc(a.id) + '" title="Edit"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button>'
+        + '<button class="row-btn row-btn--danger" data-del="' + esc(a.id) + '" title="Hapus"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m2 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></button>'
+        + '</div></td>'
+        + '</tr>';
+    }).join('');
+
+    $$('[data-edit]', tbody).forEach(function (btn) {
+      btn.addEventListener('click', function () { openEditor(btn.getAttribute('data-edit')); });
+    });
+    $$('[data-del]', tbody).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-del');
+        var a = D.getArticle(id);
+        confirmDialog('Hapus artikel "' + (a ? a.title : id) + '"? Tindakan ini tidak bisa dibatalkan.', function () {
+          D.deleteArticle(id);
+          renderArticleTable();
+          renderOverview();
+          toast('Artikel dihapus.', 'ok');
+        });
+      });
+    });
+  }
+
+  $('#articleSearch').addEventListener('input', function (e) { searchQ = e.target.value.trim(); renderArticleTable(); });
+  $('#filterCategory').addEventListener('change', function (e) { filterCat = e.target.value; renderArticleTable(); });
+
+  /* =========================================================
+     ARTICLE EDITOR (modal)
+     ========================================================= */
+  var modal = $('#articleModal');
+  var artForm = $('#articleForm');
+  var imagePicker = $('#artImagePicker');
+  var imagePreview = $('#imagePreview');
+
+  // populate image picker
+  imagePicker.innerHTML = '<option value="">— pilih dari library —</option>' +
+    D.imageLibrary().map(function (p) { return '<option value="' + p + '">' + p.replace(/^images\//, '') + '</option>'; }).join('');
+  imagePicker.addEventListener('change', function (e) {
+    if (e.target.value) { $('#artImage').value = e.target.value; updatePreview(); }
+  });
+  $('#artImage').addEventListener('input', updatePreview);
+  function updatePreview() {
+    var v = $('#artImage').value.trim();
+    if (v) { imagePreview.innerHTML = '<img src="' + resolveImg(v) + '" alt="pratinjau" onerror="this.parentNode.innerHTML=\'<span>Gambar tidak ditemukan</span>\'">'; }
+    else { imagePreview.innerHTML = '<span>Pratinjau gambar</span>'; }
+  }
+
+  $('#newArticleBtn').addEventListener('click', function () { openEditor(null); });
+
+  function openEditor(id) {
+    var a = id ? D.getArticle(id) : null;
+    if (id && !a) { toast('Artikel tidak ditemukan.', 'error'); return; }
+    artForm.reset();
+    $('#artId').value = id || '';
+    $('#modalTitle').textContent = id ? 'Edit Artikel' : 'Artikel Baru';
+    if (a) {
+      $('#artTitle').value = a.title || '';
+      $('#artCategory').value = a.category || '';
+      $('#artAuthor').value = a.author || '';
+      $('#artPublished').value = toDatetimeLocal(a.publishedAt);
+      $('#artReads').value = a.reads || 0;
+      $('#artExcerpt').value = a.excerpt || '';
+      $('#artImage').value = a.image || '';
+      $('#artTags').value = (a.tags || []).join(', ');
+      $('#artContent').value = serializeContent(a.content);
+      $('#artFeatured').checked = !!a.featured;
+    } else {
+      $('#artPublished').value = toDatetimeLocal(new Date().toISOString());
+      $('#artReads').value = 0;
+      $('#artAuthor').value = currentUser;
+    }
+    updatePreview();
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    setTimeout(function () { $('#artTitle').focus(); }, 80);
+  }
+  function closeEditor() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+  $$('[data-close]', modal).forEach(function (el) { el.addEventListener('click', closeEditor); });
+
+  artForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var id = $('#artId').value;
+    var title = $('#artTitle').value.trim();
+    var excerpt = $('#artExcerpt').value.trim();
+    var contentMd = $('#artContent').value;
+    if (!title) { toast('Judul wajib diisi.', 'error'); return; }
+    if (!excerpt) { toast('Ringkasan wajib diisi.', 'error'); return; }
+    var content = parseContent(contentMd);
+    if (!content.length) { toast('Konten tidak boleh kosong.', 'error'); return; }
+
+    var artId = id || (slugify(title) || ('artikel-' + Date.now()));
+    // Ensure unique id for new
+    if (!id && D.getArticle(artId)) artId = artId + '-' + Date.now().toString(36);
+
+    var tags = $('#artTags').value.split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+    var article = {
+      id: artId,
+      category: $('#artCategory').value || 'raja-ampat',
+      tags: tags,
+      title: title,
+      excerpt: excerpt,
+      image: $('#artImage').value.trim() || 'images/hero-rajaampat.jpg',
+      author: $('#artAuthor').value.trim() || currentUser,
+      publishedAt: fromDatetimeLocal($('#artPublished').value),
+      reads: parseInt($('#artReads').value, 10) || 0,
+      featured: $('#artFeatured').checked,
+      content: content
+    };
+    if (id) article.updatedAt = new Date().toISOString();
+
+    D.upsertArticle(article);
+    closeEditor();
+    renderArticleTable();
+    renderOverview();
+    toast(id ? 'Artikel diperbarui.' : 'Artikel ditambahkan.', 'ok');
+  });
+
+  /* "Simpan & Publish" — saves the article AND publishes ombar-data.json
+     BREAKING NEWS
+     ========================================================= */
+  function renderBreaking() {
+    var list = D.getBreaking();
+    var ul = $('#breakingList');
+    if (!list.length) {
+      ul.innerHTML = '<li class="muted">Belum ada breaking kustom. Ticker otomatis menampilkan artikel terbaru.</li>';
+      return;
+    }
+    ul.innerHTML = list.map(function (text, i) {
+      return '<li class="chip"><span class="chip__text">' + esc(text) + '</span>'
+        + '<button class="chip__remove" data-rm="' + i + '" aria-label="Hapus"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg></button></li>';
+    }).join('');
+    $$('[data-rm]', ul).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var idx = parseInt(b.getAttribute('data-rm'), 10);
+        var arr = D.getBreaking();
+        arr.splice(idx, 1);
+        D.saveBreaking(arr);
+        renderBreaking();
+        toast('Item breaking dihapus.', 'ok');
+      });
+    });
+  }
+  $('#breakingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = $('#breakingInput').value.trim();
+    if (!v) return;
+    var arr = D.getBreaking();
+    arr.push(v);
+    D.saveBreaking(arr);
+    $('#breakingInput').value = '';
+    renderBreaking();
+    toast('Breaking ditambahkan.', 'ok');
+  });
+
+  /* =========================================================
+     SETTINGS FORM
+     ========================================================= */
+  function fillSettingsForm() {
+    var s = D.getSettings();
+    $('#setSiteName').value = s.siteName || '';
+    $('#setTagline').value = s.tagline || '';
+    $('#setDesc').value = s.description || '';
+    $('#setAbout').value = s.footerAbout || '';
+    $('#setBreakingLabel').value = s.breakingLabel || 'BREAKING';
+  }
+  $('#settingsForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    D.saveSettings({
+      siteName: $('#setSiteName').value.trim(),
+      tagline: $('#setTagline').value.trim(),
+      description: $('#setDesc').value.trim(),
+      footerAbout: $('#setAbout').value.trim(),
+      breakingLabel: $('#setBreakingLabel').value.trim() || 'BREAKING'
+    });
+    toast('Pengaturan disimpan. Buka situs untuk melihat perubahan.', 'ok');
+  });
+  $('#settingsReset').addEventListener('click', function () {
+    confirmDialog('Reset pengaturan ke nilai bawaan?', function () {
+      var def = D.defaults().settings;
+      D.saveSettings(def);
+      fillSettingsForm();
+      toast('Pengaturan direset.', 'ok');
+    });
+  });
+
+  /* =========================================================
+     SECURITY / CREDENTIALS
+     ========================================================= */
+  function fillCredForm() {
+    var c = D.getCredentials();
+    $('#credUser').value = c.username || '';
+    $('#credPass').value = '';
+    $('#credPass2').value = '';
+  }
+  $('#credForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var u = $('#credUser').value.trim();
+    var p = $('#credPass').value;
+    var p2 = $('#credPass2').value;
+    if (!u) { toast('Username wajib diisi.', 'error'); return; }
+    if (p && p !== p2) { toast('Konfirmasi password tidak cocok.', 'error'); return; }
+    var cur = D.getCredentials();
+    var next = { username: u, password: p || cur.password };
+    D.setCredentials(next);
+    $('#credPass').value = ''; $('#credPass2').value = '';
+    toast('Kredensial diperbarui. Gunakan kredensial baru saat login berikutnya.', 'ok');
+  });
+
+  /* =========================================================
+  /* GitHub publish removed */
+
+  $('#copyJsonBtn').addEventListener('click', function () {
+    var json = D.exportJSON();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(json).then(function () { toast('JSON disalin ke clipboard.', 'ok'); }, function () { toast('Gagal menyalin. Salin manual.', 'error'); });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = json; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); toast('JSON disalin.', 'ok'); } catch (e) { toast('Gagal menyalin.', 'error'); }
+      document.body.removeChild(ta);
+    }
+  });
+  $('#importInput').addEventListener('change', function (e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function (ev) {
+      try {
+        D.importJSON(ev.target.result);
+        $('#importStatus').textContent = '✓ Berhasil: ' + file.name;
+        populateCategorySelects();
+        renderOverview();
+        renderArticleTable();
+        renderBreaking();
+        fillSettingsForm();
+        toast('Data diimpor.', 'ok');
+      } catch (err) {
+        $('#importStatus').textContent = '✗ ' + err.message;
+        toast('Import gagal: ' + err.message, 'error');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+  $('#resetBtn').addEventListener('click', function () {
+    confirmDialog('Reset SEMUA data (artikel, pengaturan, breaking) ke nilai bawaan? Perubahan lokal akan hilang.', function () {
+      D.resetAll();
+      populateCategorySelects();
+      renderOverview();
+      renderArticleTable();
+      renderBreaking();
+      fillSettingsForm();
+      toast('Semua data direset ke default.', 'ok');
+    });
+  });
+
+  /* =========================================================
+     INIT
+     ========================================================= */
+  // Graceful image fallback — replace broken <img> with themed placeholder
+  // so the dashboard still looks good if the images/ folder is missing.
+  var PH_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0A1A2F"/><stop offset="100%" stop-color="#0A6E8C"/></linearGradient></defs><rect width="400" height="250" fill="url(#g)"/><path d="M0 170c60 0 60-40 120-40s60 40 120 40 60-40 120-40 60 40 120 40v80H0z" fill="#06B6D4" opacity=".3"/><text x="200" y="130" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="#9DB1C8" text-anchor="middle">No Image</text></svg>';
+  var PH_URI = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(PH_SVG);
+  document.addEventListener('error', function (e) {
+    var el = e.target;
+    if (!el || el.tagName !== 'IMG') return;
+    if (el.dataset.fallbackApplied === '1') return;
+    el.dataset.fallbackApplied = '1';
+    el.src = PH_URI;
+    el.onerror = null;
+  }, true);
+
+  // Expose init so the boot can call it after login
+  window.initAdminDashboard = function() {
+    populateCategorySelects();
+    renderOverview();
+    renderArticleTable();
+    renderBreaking();
+    fillSettingsForm();
+    fillCredForm();
+  };
+  // Auto-init if already logged in (page reload scenario)
+  if (window.OMBAR_DATA && window.OMBAR_DATA.isLoggedIn()) {
+    window.initAdminDashboard();
+  }
+
+  // Keyboard: Esc closes modals
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (modal.classList.contains('is-open')) closeEditor();
+      if (confirmModal.classList.contains('is-open')) closeConfirm();
+    }
+  });
+})();
+
+
+/* ===== Standalone boot: show login OR dashboard based on auth state ===== */
+(function () {
+  'use strict';
+  var authView = document.getElementById('authView');
+  var dashView = document.getElementById('dashboardView');
+  var D = window.OMBAR_DATA;
+
+  function showLogin() {
+    authView.classList.add('is-show');
+    dashView.classList.remove('is-show');
+    document.body.classList.add('auth-body');
+  }
+  function showDashboard() {
+    authView.classList.remove('is-show');
+    dashView.classList.add('is-show');
+    document.body.classList.remove('auth-body');
+    if (typeof window.initAdminDashboard === 'function') {
+      window.initAdminDashboard();
+    }
+  }
+
+  if (D.isLoggedIn()) { showDashboard(); } else { showLogin(); }
+
+  var form = document.getElementById('loginForm');
+  var errBox = document.getElementById('loginError');
+  document.getElementById('togglePass').addEventListener('click', function () {
+    var p = document.getElementById('password');
+    p.type = p.type === 'password' ? 'text' : 'password';
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var u = document.getElementById('username').value.trim();
+    var p = document.getElementById('password').value;
+    errBox.hidden = true;
+    if (!u || !p) { errBox.textContent = 'Mohon isi username dan password.'; errBox.hidden = false; return; }
+    if (D.login(u, p)) {
+      var cu = D.currentUser() || 'admin';
+      var un = document.getElementById('userName'); if (un) un.textContent = cu;
+      var ua = document.getElementById('userAvatar'); if (ua) ua.textContent = cu.charAt(0).toUpperCase();
+      showDashboard();
+    } else {
+      errBox.textContent = 'Username atau password salah. Coba lagi.';
+      errBox.hidden = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
