@@ -701,6 +701,13 @@ main { flex: 1 0 auto; }
   background: linear-gradient(135deg, #0A1A2F, #12345C, #0A6E8C);
 }
 
+/* ---------- Share loading indicator ---------- */
+.share-loading {
+  font-size: 11.5px; color: var(--text-mute); font-style: italic;
+  font-family: var(--font-label); letter-spacing: .5px; text-transform: uppercase;
+  margin-right: 4px;
+}
+
 /* ---------- Loading overlay ---------- */
 .loader {
   position: fixed; inset: 0; z-index: 9999;

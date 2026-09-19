@@ -63,6 +63,27 @@
     } catch (e) { return null; }
   }
 
+  /* =========================================================
+     URL Shortener — makes share links SHORT (~30 chars) so they
+     work nicely on WhatsApp, SMS, Twitter, etc. Uses free public
+     APIs (is.gd + TinyURL fallback) — no API key needed.
+     Falls back to the long URL if shortener fails.
+     ========================================================= */
+  function shortenURL(longURL) {
+    // TinyURL first (preserves hash fragment on redirect, works reliably).
+    // is.gd as fallback. Both are free, no API key needed.
+    return fetch('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(longURL))
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (text) {
+        if (text && text.indexOf('http') === 0) return text.trim();
+        // Fallback: is.gd (simple format)
+        return fetch('https://is.gd/create.php?format=simple&url=' + encodeURIComponent(longURL))
+          .then(function (r) { return r.ok ? r.text() : null; })
+          .then(function (t) { return t && t.indexOf('http') === 0 ? t.trim() : null; });
+      })
+      .catch(function () { return null; });
+  }
+
   /* ---------------------------------------------------------
      1b. APPLY SITE SETTINGS (site name, tagline, description) —
      reflects admin edits on the public site.
@@ -655,11 +676,12 @@
                   <div><b>Dipublikasikan:</b> ${fmtDateTime(a.publishedAt)}</div>
                   <div><b>Diperbarui:</b> ${fmtDateTime(a.updatedAt || a.publishedAt)}</div>
                 </div>
-                <div class="article__share">
+                <div class="article__share" id="shareTop">
                   <span>Bagikan</span>
-                  <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareURL)}" target="_blank" rel="noopener" aria-label="Bagikan ke Facebook"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
-                  <a class="share-btn" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareURL)}&text=${encodeURIComponent(a.title)}" target="_blank" rel="noopener" aria-label="Bagikan ke X"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.2L4.5 21H1.5l7.4-8.5L1 3h6.6l4.5 5.6L17.5 3z"/></svg></a>
-                  <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(a.title+' '+shareURL)}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15l-1.4 5 5.1-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.1 14.9l-.3-.2-2.5.7.7-2.4-.2-.3A8 8 0 0112 4zm-2.7 4c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.7 2.7 4.2 3.7 2 .8 2.4.6 2.9.6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.7-.3-1.4-.6-2.2-1.4-.5-.5-.9-1.1-1-1.3-.1-.2 0-.4.1-.5l.4-.4c.1-.2.1-.3.2-.5 0-.1 0-.3-.1-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4z"/></svg></a>
+                  <span class="share-loading" id="shareLoading">⏳ memendekkan…</span>
+                  <a class="share-btn" data-share="fb" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareURL)}" target="_blank" rel="noopener" aria-label="Bagikan ke Facebook"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+                  <a class="share-btn" data-share="tw" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareURL)}&text=${encodeURIComponent(a.title)}" target="_blank" rel="noopener" aria-label="Bagikan ke X"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.2L4.5 21H1.5l7.4-8.5L1 3h6.6l4.5 5.6L17.5 3z"/></svg></a>
+                  <a class="share-btn" data-share="wa" href="https://wa.me/?text=${encodeURIComponent(a.title+' '+shareURL)}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15l-1.4 5 5.1-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.1 14.9l-.3-.2-2.5.7.7-2.4-.2-.3A8 8 0 0112 4zm-2.7 4c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.7 2.7 4.2 3.7 2 .8 2.4.6 2.9.6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.7-.3-1.4-.6-2.2-1.4-.5-.5-.9-1.1-1-1.3-.1-.2 0-.4.1-.5l.4-.4c.1-.2.1-.3.2-.5 0-.1 0-.3-.1-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4z"/></svg></a>
                   <button class="share-btn" data-copy="${shareURL}" aria-label="Salin tautan"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M10 14a4 4 0 005.7 0l3-3a4 4 0 10-5.7-5.7L11 7M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 105.7 5.7L13 17"/></svg></button>
                 </div>
               </div>
@@ -693,9 +715,10 @@
 
               <div class="article__share-bottom">
                 <span style="font-family:var(--font-label);text-transform:uppercase;letter-spacing:1px;font-size:12px;color:var(--text-mute)">Bagikan artikel</span>
-                <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareURL)}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
-                <a class="share-btn" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareURL)}&text=${encodeURIComponent(a.title)}" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.2L4.5 21H1.5l7.4-8.5L1 3h6.6l4.5 5.6L17.5 3z"/></svg></a>
-                <a class="share-btn" href="https://wa.me/?text=${encodeURIComponent(a.title+' '+shareURL)}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15l-1.4 5 5.1-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.1 14.9l-.3-.2-2.5.7.7-2.4-.2-.3A8 8 0 0112 4z"/></svg></a>
+                <span class="share-loading" id="shareLoadingBottom">⏳ memendekkan…</span>
+                <a class="share-btn" data-share="fb" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareURL)}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+                <a class="share-btn" data-share="tw" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareURL)}&text=${encodeURIComponent(a.title)}" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.2L4.5 21H1.5l7.4-8.5L1 3h6.6l4.5 5.6L17.5 3z"/></svg></a>
+                <a class="share-btn" data-share="wa" href="https://wa.me/?text=${encodeURIComponent(a.title+' '+shareURL)}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15l-1.4 5 5.1-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.1 14.9l-.3-.2-2.5.7.7-2.4-.2-.3A8 8 0 0112 4z"/></svg></a>
                 <button class="share-btn" data-copy="${shareURL}" aria-label="Salin tautan"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M10 14a4 4 0 005.7 0l3-3a4 4 0 10-5.7-5.7L11 7M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 105.7 5.7L13 17"/></svg></button>
               </div>
             </div>
@@ -726,6 +749,39 @@
       });
     });
     observeReveal();
+
+    // Auto-shorten the share URL (so links are short for WhatsApp/SMS/Twitter).
+    // Uses free is.gd / TinyURL APIs — no API key. Falls back to long URL.
+    if (shareURL && shareURL.indexOf('#a=') >= 0) {
+      shortenURL(shareURL).then(function (short) {
+        if (!short) {
+          // Shortener failed — hide loading, keep long URL.
+          var l1 = document.getElementById('shareLoading'); if (l1) l1.remove();
+          var l2 = document.getElementById('shareLoadingBottom'); if (l2) l2.remove();
+          return;
+        }
+        // Update all share buttons to use the short URL.
+        $$('[data-share="fb"]', container).forEach(function (el) {
+          el.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(short);
+        });
+        $$('[data-share="tw"]', container).forEach(function (el) {
+          el.href = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(short) + '&text=' + encodeURIComponent(a.title);
+        });
+        $$('[data-share="wa"]', container).forEach(function (el) {
+          el.href = 'https://wa.me/?text=' + encodeURIComponent(a.title + ' ' + short);
+        });
+        $$('[data-copy]', container).forEach(function (el) {
+          el.setAttribute('data-copy', short);
+        });
+        // Hide loading indicators
+        var l1 = document.getElementById('shareLoading'); if (l1) l1.remove();
+        var l2 = document.getElementById('shareLoadingBottom'); if (l2) l2.remove();
+      });
+    } else {
+      // Default article (not base64) — no need to shorten, hide loading.
+      var l1 = document.getElementById('shareLoading'); if (l1) l1.remove();
+      var l2 = document.getElementById('shareLoadingBottom'); if (l2) l2.remove();
+    }
   }
 
   /* ---------------------------------------------------------
